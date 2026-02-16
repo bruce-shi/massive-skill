@@ -1,0 +1,22 @@
+{
+  "name": "polygon",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "bin": {
+    "polygon": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "bun build src/cli.ts --outdir dist --target bun && cp skills/SKILL.md dist/SKILL.md && rm -rf dist/references && cp -r skills/references dist/references",
+    "start": "bun dist/cli.js"
+  },
+  "dependencies": {
+    "@massive.com/client-js": "^10.3.0"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
