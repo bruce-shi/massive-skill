@@ -1,6 +1,6 @@
 {
   "name": "massive-cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Polygon/Massive Market Data CLI",
   "module": "index.ts",
   "type": "module",
