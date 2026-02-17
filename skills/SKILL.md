@@ -4,7 +4,7 @@ description: Access Polygon/Massive stock, crypto, forex, options, indices, futu
 metadata:
   openclaw:
     requires:
-      bins: ["bun"]
+      bins: ["npx"]
       env: ["POLY_API_KEY"]
     primaryEnv: "POLY_API_KEY"
 ---
@@ -12,7 +12,6 @@ metadata:
 # Polygon (Massive) Market Data Skill
 
 A CLI tool and JS client wrapper for the [Polygon/Massive](https://massive.com) financial data APIs. Covers stocks, crypto, forex, options, indices, futures, market status, news, and reference data.
-
 
 ## CLI Usage
 

@@ -2,25 +2,6 @@
 
 A CLI tool for accessing [Polygon.io](https://polygon.io) financial data (Stocks, Crypto, Forex, Options, Indices) using [Bun](https://bun.sh).
 
-## Setup
-
-1.  **Install Dependencies:**
-    ```bash
-    bun install
-    ```
-
-2.  **Configure API Key:**
-    Create a `.env` file in the root directory:
-    ```
-    POLY_API_KEY=your_api_key_here
-    ```
-
-3.  **Build:**
-    ```bash
-    bun run build
-    ```
-    This generates the bundled CLI in `dist/cli.js`.
-
 ## Usage
 
 ### Via NPX (Recommended)
@@ -30,10 +11,28 @@ Run commands directly without installing:
 ```bash
 npx massive <command> [options]
 ```
-*(Requires Bun to be installed)*
 
 ### Local Installation
 
+1.  **Install Dependencies:**
+    ```bash
+    bun install
+    ```
+
+2.  **Configure API Key:**
+    ```bash
+    export POLY_API_KEY=your_api_key_here
+    ```
+    or create a .env file in the root directory:
+    ```
+    POLY_API_KEY=your_api_key_here
+    ```
+
+3.  **Build:**
+    ```bash
+    bun run build
+    ```
+    This generates the bundled CLI in `dist/cli.js`.
 Run commands using the built CLI:
 
 ```bash
