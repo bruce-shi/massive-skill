@@ -9,7 +9,7 @@ Get aggregate bars (OHLCV) for a forex pair over a given date range.
 
 **Usage:**
 ```bash
-npx massive forex-aggs --ticker <ticker> --from <YYYY-MM-DD> --to <YYYY-MM-DD> [options]
+npx --yes massive forex-aggs --ticker <ticker> --from <YYYY-MM-DD> --to <YYYY-MM-DD> [options]
 ```
 
 **Parameters:**
@@ -24,7 +24,7 @@ npx massive forex-aggs --ticker <ticker> --from <YYYY-MM-DD> --to <YYYY-MM-DD> [
 
 **Example:**
 ```bash
-npx massive forex-aggs --ticker C:EURUSD --from 2025-01-01 --to 2025-01-31 --timespan day --limit 10
+npx --yes massive forex-aggs --ticker C:EURUSD --from 2025-01-01 --to 2025-01-31 --timespan day --limit 10
 ```
 
 ### forex-quotes
@@ -32,7 +32,7 @@ Get quotes for a forex pair.
 
 **Usage:**
 ```bash
-npx massive forex-quotes --ticker <ticker> [options]
+npx --yes massive forex-quotes --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -45,7 +45,7 @@ npx massive forex-quotes --ticker <ticker> [options]
 
 **Example:**
 ```bash
-npx massive forex-quotes --ticker C:EURUSD --limit 5
+npx --yes massive forex-quotes --ticker C:EURUSD --limit 5
 ```
 
 ### forex-snapshot
@@ -53,7 +53,7 @@ Get the most recent snapshot for a forex pair.
 
 **Usage:**
 ```bash
-npx massive forex-snapshot --ticker <ticker>
+npx --yes massive forex-snapshot --ticker <ticker>
 ```
 
 **Parameters:**
@@ -61,7 +61,7 @@ npx massive forex-snapshot --ticker <ticker>
 
 **Example:**
 ```bash
-npx massive forex-snapshot --ticker C:EURUSD
+npx --yes massive forex-snapshot --ticker C:EURUSD
 ```
 
 ### forex-previous
@@ -69,7 +69,7 @@ Get the previous day's open, high, low, and close (OHLC) for a forex pair.
 
 **Usage:**
 ```bash
-npx massive forex-previous --ticker <ticker> [options]
+npx --yes massive forex-previous --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -78,7 +78,7 @@ npx massive forex-previous --ticker <ticker> [options]
 
 **Example:**
 ```bash
-npx massive forex-previous --ticker C:EURUSD
+npx --yes massive forex-previous --ticker C:EURUSD
 ```
 
 ### forex-grouped
@@ -86,7 +86,7 @@ Get the daily open, high, low, and close (OHLC) for the entire forex market.
 
 **Usage:**
 ```bash
-npx massive forex-grouped --date <YYYY-MM-DD> [options]
+npx --yes massive forex-grouped --date <YYYY-MM-DD> [options]
 ```
 
 **Parameters:**
@@ -95,7 +95,7 @@ npx massive forex-grouped --date <YYYY-MM-DD> [options]
 
 **Example:**
 ```bash
-npx massive forex-grouped --date 2025-01-15
+npx --yes massive forex-grouped --date 2025-01-15
 ```
 
 ### forex-sma
@@ -103,7 +103,7 @@ Get Simple Moving Average (SMA) for a forex pair.
 
 **Usage:**
 ```bash
-npx massive forex-sma --ticker <ticker> [options]
+npx --yes massive forex-sma --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -120,7 +120,7 @@ npx massive forex-sma --ticker <ticker> [options]
 
 **Example:**
 ```bash
-npx massive forex-sma --ticker C:EURUSD --window 50
+npx --yes massive forex-sma --ticker C:EURUSD --window 50
 ```
 
 ### forex-ema
@@ -128,7 +128,7 @@ Get Exponential Moving Average (EMA) for a forex pair.
 
 **Usage:**
 ```bash
-npx massive forex-ema --ticker <ticker> [options]
+npx --yes massive forex-ema --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -145,7 +145,7 @@ npx massive forex-ema --ticker <ticker> [options]
 
 **Example:**
 ```bash
-npx massive forex-ema --ticker C:EURUSD --window 50
+npx --yes massive forex-ema --ticker C:EURUSD --window 50
 ```
 
 ### forex-rsi
@@ -153,7 +153,7 @@ Get Relative Strength Index (RSI) for a forex pair.
 
 **Usage:**
 ```bash
-npx massive forex-rsi --ticker <ticker> [options]
+npx --yes massive forex-rsi --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -170,7 +170,7 @@ npx massive forex-rsi --ticker <ticker> [options]
 
 **Example:**
 ```bash
-npx massive forex-rsi --ticker C:EURUSD --window 14
+npx --yes massive forex-rsi --ticker C:EURUSD --window 14
 ```
 
 ### forex-macd
@@ -178,7 +178,7 @@ Get Moving Average Convergence/Divergence (MACD) for a forex pair.
 
 **Usage:**
 ```bash
-npx massive forex-macd --ticker <ticker> [options]
+npx --yes massive forex-macd --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -197,7 +197,7 @@ npx massive forex-macd --ticker <ticker> [options]
 
 **Example:**
 ```bash
-npx massive forex-macd --ticker C:EURUSD
+npx --yes massive forex-macd --ticker C:EURUSD
 ```
 
 ### currency-conversion
@@ -205,7 +205,7 @@ Get currency conversion.
 
 **Usage:**
 ```bash
-npx massive currency-conversion --from <currency> --to <currency> [options]
+npx --yes massive currency-conversion --from <currency> --to <currency> [options]
 ```
 
 **Parameters:**
@@ -216,7 +216,7 @@ npx massive currency-conversion --from <currency> --to <currency> [options]
 
 **Example:**
 ```bash
-npx massive currency-conversion --from USD --to EUR --amount 100
+npx --yes massive currency-conversion --from USD --to EUR --amount 100
 ```
 
 ### last-forex-quote
@@ -224,7 +224,7 @@ Get the last quote for a forex pair.
 
 **Usage:**
 ```bash
-npx massive last-forex-quote --from <currency> --to <currency>
+npx --yes massive last-forex-quote --from <currency> --to <currency>
 ```
 
 **Parameters:**
@@ -233,5 +233,5 @@ npx massive last-forex-quote --from <currency> --to <currency>
 
 **Example:**
 ```bash
-npx massive last-forex-quote --from EUR --to USD
+npx --yes massive last-forex-quote --from EUR --to USD
 ```

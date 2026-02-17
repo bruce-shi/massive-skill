@@ -16,7 +16,7 @@ A CLI tool and JS client wrapper for the [Massive(Polygon)](https://massive.com)
 ## CLI Usage
 
 ```bash
-npx massive <command> [options]
+npx --yes massive <command> [options]
 ```
 
 All commands output JSON to stdout. Use `--help` for a list of commands or `<command> --help` for command-specific options.

@@ -9,7 +9,7 @@ A CLI tool for accessing [Massive(Polygon)](https://massive.com) financial data 
 Run commands directly without installing:
 
 ```bash
-npx massive <command> [options]
+npx --yes massive <command> [options]
 ```
 
 ### Local Installation
@@ -43,20 +43,20 @@ bun dist/cli.js <command> [options]
 
 **Stocks:**
 ```bash
-npx massive stocks-aggs --ticker AAPL --from 2023-01-01 --to 2023-01-31
+npx --yes massive stocks-aggs --ticker AAPL --from 2023-01-01 --to 2023-01-31
 ```
 
 **Crypto:**
 ```bash
-npx massive crypto-snapshot --ticker X:BTCUSD
+npx --yes massive crypto-snapshot --ticker X:BTCUSD
 ```
 
 **Market Status:**
 ```bash
-npx massive market-status
+npx --yes massive market-status
 ```
 
 Use `--help` to see all available commands:
 ```bash
-npx massive --help
+npx --yes massive --help
 ```

@@ -38,7 +38,7 @@ Used in technical indicators (`crypto-sma`, `crypto-ema`, `crypto-rsi`, `crypto-
 
 **Example**:
 ```bash
-npx massive crypto-aggs --ticker X:BTCUSD --from 2023-01-01 --to 2023-01-31 --timespan day
+npx --yes massive crypto-aggs --ticker X:BTCUSD --from 2023-01-01 --to 2023-01-31 --timespan day
 ```
 
 ### `crypto-trades`
@@ -51,7 +51,7 @@ npx massive crypto-aggs --ticker X:BTCUSD --from 2023-01-01 --to 2023-01-31 --ti
 
 **Example**:
 ```bash
-npx massive crypto-trades --ticker X:BTCUSD --limit 5
+npx --yes massive crypto-trades --ticker X:BTCUSD --limit 5
 ```
 
 ### `crypto-snapshot`
@@ -59,7 +59,7 @@ npx massive crypto-trades --ticker X:BTCUSD --limit 5
 
 **Example**:
 ```bash
-npx massive crypto-snapshot --ticker X:BTCUSD
+npx --yes massive crypto-snapshot --ticker X:BTCUSD
 ```
 
 ### `crypto-snapshot-direction`
@@ -67,7 +67,7 @@ npx massive crypto-snapshot --ticker X:BTCUSD
 
 **Example**:
 ```bash
-npx massive crypto-snapshot-direction --direction gainers
+npx --yes massive crypto-snapshot-direction --direction gainers
 ```
 
 ### `crypto-snapshot-tickers`
@@ -75,7 +75,7 @@ npx massive crypto-snapshot-direction --direction gainers
 
 **Example**:
 ```bash
-npx massive crypto-snapshot-tickers --tickers X:BTCUSD,X:ETHUSD
+npx --yes massive crypto-snapshot-tickers --tickers X:BTCUSD,X:ETHUSD
 ```
 
 ### `crypto-open-close`
@@ -86,7 +86,7 @@ npx massive crypto-snapshot-tickers --tickers X:BTCUSD,X:ETHUSD
 
 **Example**:
 ```bash
-npx massive crypto-open-close --from BTC --to USD --date 2023-01-01
+npx --yes massive crypto-open-close --from BTC --to USD --date 2023-01-01
 ```
 
 ### `crypto-previous`
@@ -95,7 +95,7 @@ npx massive crypto-open-close --from BTC --to USD --date 2023-01-01
 
 **Example**:
 ```bash
-npx massive crypto-previous --ticker X:BTCUSD
+npx --yes massive crypto-previous --ticker X:BTCUSD
 ```
 
 ### `crypto-grouped`
@@ -104,7 +104,7 @@ npx massive crypto-previous --ticker X:BTCUSD
 
 **Example**:
 ```bash
-npx massive crypto-grouped --date 2023-01-01
+npx --yes massive crypto-grouped --date 2023-01-01
 ```
 
 ### Technical Indicators (`crypto-sma`, `crypto-ema`, `crypto-rsi`, `crypto-macd`)
@@ -126,10 +126,10 @@ Specific to `crypto-macd`:
 **Example**:
 ```bash
 # SMA
-npx massive crypto-sma --ticker X:BTCUSD --timespan day --window 50
+npx --yes massive crypto-sma --ticker X:BTCUSD --timespan day --window 50
 
 # MACD
-npx massive crypto-macd --ticker X:BTCUSD --timespan day --short-window 12 --long-window 26 --signal-window 9
+npx --yes massive crypto-macd --ticker X:BTCUSD --timespan day --short-window 12 --long-window 26 --signal-window 9
 ```
 
 ### `last-crypto-trade`
@@ -138,5 +138,5 @@ npx massive crypto-macd --ticker X:BTCUSD --timespan day --short-window 12 --lon
 
 **Example**:
 ```bash
-npx massive last-crypto-trade --from BTC --to USD
+npx --yes massive last-crypto-trade --from BTC --to USD
 ```

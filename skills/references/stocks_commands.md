@@ -9,7 +9,7 @@ Get aggregate bars (OHLCV) for a stock over a given date range.
 
 **Usage:**
 ```bash
-npx massive stocks-aggs --ticker <ticker> --from <YYYY-MM-DD> --to <YYYY-MM-DD> [options]
+npx --yes massive stocks-aggs --ticker <ticker> --from <YYYY-MM-DD> --to <YYYY-MM-DD> [options]
 ```
 
 **Parameters:**
@@ -24,7 +24,7 @@ npx massive stocks-aggs --ticker <ticker> --from <YYYY-MM-DD> --to <YYYY-MM-DD> 
 
 **Example:**
 ```bash
-npx massive stocks-aggs --ticker AAPL --from 2023-01-01 --to 2023-01-31 --timespan day --limit 10
+npx --yes massive stocks-aggs --ticker AAPL --from 2023-01-01 --to 2023-01-31 --timespan day --limit 10
 ```
 
 ### stocks-trades
@@ -32,7 +32,7 @@ Get trades for a stock ticker.
 
 **Usage:**
 ```bash
-npx massive stocks-trades --ticker <ticker> [options]
+npx --yes massive stocks-trades --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -45,7 +45,7 @@ npx massive stocks-trades --ticker <ticker> [options]
 
 **Example:**
 ```bash
-npx massive stocks-trades --ticker AAPL --limit 5
+npx --yes massive stocks-trades --ticker AAPL --limit 5
 ```
 
 ### stocks-quotes
@@ -53,7 +53,7 @@ Get NBBO quotes for a stock ticker.
 
 **Usage:**
 ```bash
-npx massive stocks-quotes --ticker <ticker> [options]
+npx --yes massive stocks-quotes --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -66,7 +66,7 @@ npx massive stocks-quotes --ticker <ticker> [options]
 
 **Example:**
 ```bash
-npx massive stocks-quotes --ticker AAPL --limit 5
+npx --yes massive stocks-quotes --ticker AAPL --limit 5
 ```
 
 ### stocks-snapshot
@@ -74,7 +74,7 @@ Get the most recent snapshot for a stock ticker.
 
 **Usage:**
 ```bash
-npx massive stocks-snapshot --ticker <ticker>
+npx --yes massive stocks-snapshot --ticker <ticker>
 ```
 
 **Parameters:**
@@ -82,7 +82,7 @@ npx massive stocks-snapshot --ticker <ticker>
 
 **Example:**
 ```bash
-npx massive stocks-snapshot --ticker AAPL
+npx --yes massive stocks-snapshot --ticker AAPL
 ```
 
 ### stocks-open-close
@@ -90,7 +90,7 @@ Get the daily open, close, and after-hours prices for a stock ticker on a specif
 
 **Usage:**
 ```bash
-npx massive stocks-open-close --ticker <ticker> --date <YYYY-MM-DD> [options]
+npx --yes massive stocks-open-close --ticker <ticker> --date <YYYY-MM-DD> [options]
 ```
 
 **Parameters:**
@@ -100,7 +100,7 @@ npx massive stocks-open-close --ticker <ticker> --date <YYYY-MM-DD> [options]
 
 **Example:**
 ```bash
-npx massive stocks-open-close --ticker AAPL --date 2023-01-15
+npx --yes massive stocks-open-close --ticker AAPL --date 2023-01-15
 ```
 
 ### stocks-previous
@@ -108,7 +108,7 @@ Get the previous day's open, high, low, and close (OHLC) for a stock ticker.
 
 **Usage:**
 ```bash
-npx massive stocks-previous --ticker <ticker> [options]
+npx --yes massive stocks-previous --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -117,7 +117,7 @@ npx massive stocks-previous --ticker <ticker> [options]
 
 **Example:**
 ```bash
-npx massive stocks-previous --ticker AAPL
+npx --yes massive stocks-previous --ticker AAPL
 ```
 
 ### stocks-grouped
@@ -125,7 +125,7 @@ Get the daily open, high, low, and close (OHLC) for the entire stocks market.
 
 **Usage:**
 ```bash
-npx massive stocks-grouped --date <YYYY-MM-DD> [options]
+npx --yes massive stocks-grouped --date <YYYY-MM-DD> [options]
 ```
 
 **Parameters:**
@@ -135,7 +135,7 @@ npx massive stocks-grouped --date <YYYY-MM-DD> [options]
 
 **Example:**
 ```bash
-npx massive stocks-grouped --date 2023-01-15
+npx --yes massive stocks-grouped --date 2023-01-15
 ```
 
 ### stocks-sma
@@ -143,7 +143,7 @@ Get Simple Moving Average (SMA) for a stock ticker.
 
 **Usage:**
 ```bash
-npx massive stocks-sma --ticker <ticker> [options]
+npx --yes massive stocks-sma --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -160,7 +160,7 @@ npx massive stocks-sma --ticker <ticker> [options]
 
 **Example:**
 ```bash
-npx massive stocks-sma --ticker AAPL --window 50
+npx --yes massive stocks-sma --ticker AAPL --window 50
 ```
 
 ### stocks-ema
@@ -168,7 +168,7 @@ Get Exponential Moving Average (EMA) for a stock ticker.
 
 **Usage:**
 ```bash
-npx massive stocks-ema --ticker <ticker> [options]
+npx --yes massive stocks-ema --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -185,7 +185,7 @@ npx massive stocks-ema --ticker <ticker> [options]
 
 **Example:**
 ```bash
-npx massive stocks-ema --ticker AAPL --window 50
+npx --yes massive stocks-ema --ticker AAPL --window 50
 ```
 
 ### stocks-rsi
@@ -193,7 +193,7 @@ Get Relative Strength Index (RSI) for a stock ticker.
 
 **Usage:**
 ```bash
-npx massive stocks-rsi --ticker <ticker> [options]
+npx --yes massive stocks-rsi --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -210,7 +210,7 @@ npx massive stocks-rsi --ticker <ticker> [options]
 
 **Example:**
 ```bash
-npx massive stocks-rsi --ticker AAPL --window 14
+npx --yes massive stocks-rsi --ticker AAPL --window 14
 ```
 
 ### stocks-macd
@@ -218,7 +218,7 @@ Get Moving Average Convergence/Divergence (MACD) for a stock ticker.
 
 **Usage:**
 ```bash
-npx massive stocks-macd --ticker <ticker> [options]
+npx --yes massive stocks-macd --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -237,7 +237,7 @@ npx massive stocks-macd --ticker <ticker> [options]
 
 **Example:**
 ```bash
-npx massive stocks-macd --ticker AAPL
+npx --yes massive stocks-macd --ticker AAPL
 ```
 
 ### last-trade
@@ -245,7 +245,7 @@ Get the most recent trade for a stock ticker.
 
 **Usage:**
 ```bash
-npx massive last-trade --ticker <ticker>
+npx --yes massive last-trade --ticker <ticker>
 ```
 
 **Parameters:**
@@ -253,7 +253,7 @@ npx massive last-trade --ticker <ticker>
 
 **Example:**
 ```bash
-npx massive last-trade --ticker AAPL
+npx --yes massive last-trade --ticker AAPL
 ```
 
 ### last-quote
@@ -261,7 +261,7 @@ Get the most recent quote (NBBO) for a stock ticker.
 
 **Usage:**
 ```bash
-npx massive last-quote --ticker <ticker>
+npx --yes massive last-quote --ticker <ticker>
 ```
 
 **Parameters:**
@@ -269,5 +269,5 @@ npx massive last-quote --ticker <ticker>
 
 **Example:**
 ```bash
-npx massive last-quote --ticker AAPL
+npx --yes massive last-quote --ticker AAPL
 ```
