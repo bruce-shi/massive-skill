@@ -9,7 +9,7 @@ Get aggregate bars (OHLCV) for a forex pair over a given date range.
 
 **Usage:**
 ```bash
-bun cli.js forex-aggs --ticker <ticker> --from <YYYY-MM-DD> --to <YYYY-MM-DD> [options]
+npx massive forex-aggs --ticker <ticker> --from <YYYY-MM-DD> --to <YYYY-MM-DD> [options]
 ```
 
 **Parameters:**
@@ -24,7 +24,7 @@ bun cli.js forex-aggs --ticker <ticker> --from <YYYY-MM-DD> --to <YYYY-MM-DD> [o
 
 **Example:**
 ```bash
-bun cli.js forex-aggs --ticker C:EURUSD --from 2025-01-01 --to 2025-01-31 --timespan day --limit 10
+npx massive forex-aggs --ticker C:EURUSD --from 2025-01-01 --to 2025-01-31 --timespan day --limit 10
 ```
 
 ### forex-quotes
@@ -32,7 +32,7 @@ Get quotes for a forex pair.
 
 **Usage:**
 ```bash
-bun cli.js forex-quotes --ticker <ticker> [options]
+npx massive forex-quotes --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -45,7 +45,7 @@ bun cli.js forex-quotes --ticker <ticker> [options]
 
 **Example:**
 ```bash
-bun cli.js forex-quotes --ticker C:EURUSD --limit 5
+npx massive forex-quotes --ticker C:EURUSD --limit 5
 ```
 
 ### forex-snapshot
@@ -53,7 +53,7 @@ Get the most recent snapshot for a forex pair.
 
 **Usage:**
 ```bash
-bun cli.js forex-snapshot --ticker <ticker>
+npx massive forex-snapshot --ticker <ticker>
 ```
 
 **Parameters:**
@@ -61,7 +61,7 @@ bun cli.js forex-snapshot --ticker <ticker>
 
 **Example:**
 ```bash
-bun cli.js forex-snapshot --ticker C:EURUSD
+npx massive forex-snapshot --ticker C:EURUSD
 ```
 
 ### forex-previous
@@ -69,7 +69,7 @@ Get the previous day's open, high, low, and close (OHLC) for a forex pair.
 
 **Usage:**
 ```bash
-bun cli.js forex-previous --ticker <ticker> [options]
+npx massive forex-previous --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -78,7 +78,7 @@ bun cli.js forex-previous --ticker <ticker> [options]
 
 **Example:**
 ```bash
-bun cli.js forex-previous --ticker C:EURUSD
+npx massive forex-previous --ticker C:EURUSD
 ```
 
 ### forex-grouped
@@ -86,7 +86,7 @@ Get the daily open, high, low, and close (OHLC) for the entire forex market.
 
 **Usage:**
 ```bash
-bun cli.js forex-grouped --date <YYYY-MM-DD> [options]
+npx massive forex-grouped --date <YYYY-MM-DD> [options]
 ```
 
 **Parameters:**
@@ -95,7 +95,7 @@ bun cli.js forex-grouped --date <YYYY-MM-DD> [options]
 
 **Example:**
 ```bash
-bun cli.js forex-grouped --date 2025-01-15
+npx massive forex-grouped --date 2025-01-15
 ```
 
 ### forex-sma
@@ -103,7 +103,7 @@ Get Simple Moving Average (SMA) for a forex pair.
 
 **Usage:**
 ```bash
-bun cli.js forex-sma --ticker <ticker> [options]
+npx massive forex-sma --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -120,7 +120,7 @@ bun cli.js forex-sma --ticker <ticker> [options]
 
 **Example:**
 ```bash
-bun cli.js forex-sma --ticker C:EURUSD --window 50
+npx massive forex-sma --ticker C:EURUSD --window 50
 ```
 
 ### forex-ema
@@ -128,7 +128,7 @@ Get Exponential Moving Average (EMA) for a forex pair.
 
 **Usage:**
 ```bash
-bun cli.js forex-ema --ticker <ticker> [options]
+npx massive forex-ema --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -145,7 +145,7 @@ bun cli.js forex-ema --ticker <ticker> [options]
 
 **Example:**
 ```bash
-bun cli.js forex-ema --ticker C:EURUSD --window 50
+npx massive forex-ema --ticker C:EURUSD --window 50
 ```
 
 ### forex-rsi
@@ -153,7 +153,7 @@ Get Relative Strength Index (RSI) for a forex pair.
 
 **Usage:**
 ```bash
-bun cli.js forex-rsi --ticker <ticker> [options]
+npx massive forex-rsi --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -170,7 +170,7 @@ bun cli.js forex-rsi --ticker <ticker> [options]
 
 **Example:**
 ```bash
-bun cli.js forex-rsi --ticker C:EURUSD --window 14
+npx massive forex-rsi --ticker C:EURUSD --window 14
 ```
 
 ### forex-macd
@@ -178,7 +178,7 @@ Get Moving Average Convergence/Divergence (MACD) for a forex pair.
 
 **Usage:**
 ```bash
-bun cli.js forex-macd --ticker <ticker> [options]
+npx massive forex-macd --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -197,7 +197,7 @@ bun cli.js forex-macd --ticker <ticker> [options]
 
 **Example:**
 ```bash
-bun cli.js forex-macd --ticker C:EURUSD
+npx massive forex-macd --ticker C:EURUSD
 ```
 
 ### currency-conversion
@@ -205,7 +205,7 @@ Get currency conversion.
 
 **Usage:**
 ```bash
-bun cli.js currency-conversion --from <currency> --to <currency> [options]
+npx massive currency-conversion --from <currency> --to <currency> [options]
 ```
 
 **Parameters:**
@@ -216,7 +216,7 @@ bun cli.js currency-conversion --from <currency> --to <currency> [options]
 
 **Example:**
 ```bash
-bun cli.js currency-conversion --from USD --to EUR --amount 100
+npx massive currency-conversion --from USD --to EUR --amount 100
 ```
 
 ### last-forex-quote
@@ -224,7 +224,7 @@ Get the last quote for a forex pair.
 
 **Usage:**
 ```bash
-bun cli.js last-forex-quote --from <currency> --to <currency>
+npx massive last-forex-quote --from <currency> --to <currency>
 ```
 
 **Parameters:**
@@ -233,5 +233,5 @@ bun cli.js last-forex-quote --from <currency> --to <currency>
 
 **Example:**
 ```bash
-bun cli.js last-forex-quote --from EUR --to USD
+npx massive last-forex-quote --from EUR --to USD
 ```

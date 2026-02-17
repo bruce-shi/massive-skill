@@ -9,7 +9,7 @@ Query all ticker symbols which are supported by Polygon.io.
 
 **Usage:**
 ```bash
-bun cli.js tickers [options]
+npx massive tickers [options]
 ```
 
 **Parameters:**
@@ -28,7 +28,7 @@ bun cli.js tickers [options]
 
 **Example:**
 ```bash
-bun cli.js tickers --search apple --market stocks --active true
+npx massive tickers --search apple --market stocks --active true
 ```
 
 ### ticker-details
@@ -36,7 +36,7 @@ Get a single ticker supported by Polygon.io.
 
 **Usage:**
 ```bash
-bun cli.js ticker-details --ticker <ticker> [options]
+npx massive ticker-details --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -45,7 +45,7 @@ bun cli.js ticker-details --ticker <ticker> [options]
 
 **Example:**
 ```bash
-bun cli.js ticker-details --ticker AAPL
+npx massive ticker-details --ticker AAPL
 ```
 
 ### ticker-types
@@ -53,7 +53,7 @@ Get a mapping of ticker types to their type code.
 
 **Usage:**
 ```bash
-bun cli.js ticker-types [options]
+npx massive ticker-types [options]
 ```
 
 **Parameters:**
@@ -62,7 +62,7 @@ bun cli.js ticker-types [options]
 
 **Example:**
 ```bash
-bun cli.js ticker-types --asset-class stocks
+npx massive ticker-types --asset-class stocks
 ```
 
 ### exchanges
@@ -70,7 +70,7 @@ List all exchanges that Polygon.io knows about.
 
 **Usage:**
 ```bash
-bun cli.js exchanges [options]
+npx massive exchanges [options]
 ```
 
 **Parameters:**
@@ -79,7 +79,7 @@ bun cli.js exchanges [options]
 
 **Example:**
 ```bash
-bun cli.js exchanges --asset-class stocks
+npx massive exchanges --asset-class stocks
 ```
 
 ### conditions
@@ -87,7 +87,7 @@ List all conditions that Polygon.io uses.
 
 **Usage:**
 ```bash
-bun cli.js conditions [options]
+npx massive conditions [options]
 ```
 
 **Parameters:**
@@ -101,7 +101,7 @@ bun cli.js conditions [options]
 
 **Example:**
 ```bash
-bun cli.js conditions --asset-class stocks
+npx massive conditions --asset-class stocks
 ```
 
 ### dividends
@@ -109,7 +109,7 @@ Get a list of historical cash dividends, including the ticker symbol, declaratio
 
 **Usage:**
 ```bash
-bun cli.js dividends [options]
+npx massive dividends [options]
 ```
 
 **Parameters:**
@@ -127,7 +127,7 @@ bun cli.js dividends [options]
 
 **Example:**
 ```bash
-bun cli.js dividends --ticker AAPL
+npx massive dividends --ticker AAPL
 ```
 
 ### stock-splits
@@ -135,7 +135,7 @@ Get a list of historical stock splits, including the ticker symbol, the executio
 
 **Usage:**
 ```bash
-bun cli.js stock-splits [options]
+npx massive stock-splits [options]
 ```
 
 **Parameters:**
@@ -148,7 +148,7 @@ bun cli.js stock-splits [options]
 
 **Example:**
 ```bash
-bun cli.js stock-splits --ticker AAPL
+npx massive stock-splits --ticker AAPL
 ```
 
 ### financials
@@ -156,7 +156,7 @@ Get historical financial data for a stock ticker.
 
 **Usage:**
 ```bash
-bun cli.js financials [options]
+npx massive financials [options]
 ```
 
 **Parameters:**
@@ -174,7 +174,7 @@ bun cli.js financials [options]
 
 **Example:**
 ```bash
-bun cli.js financials --ticker AAPL
+npx massive financials --ticker AAPL
 ```
 
 ### ipos
@@ -182,7 +182,7 @@ Get a list of upcoming IPOs.
 
 **Usage:**
 ```bash
-bun cli.js ipos [options]
+npx massive ipos [options]
 ```
 
 **Parameters:**
@@ -196,7 +196,7 @@ bun cli.js ipos [options]
 
 **Example:**
 ```bash
-bun cli.js ipos --limit 5
+npx massive ipos --limit 5
 ```
 
 ### related-companies
@@ -204,7 +204,7 @@ Get a list of tickers that are related to the given ticker.
 
 **Usage:**
 ```bash
-bun cli.js related-companies --ticker <ticker>
+npx massive related-companies --ticker <ticker>
 ```
 
 **Parameters:**
@@ -212,5 +212,5 @@ bun cli.js related-companies --ticker <ticker>
 
 **Example:**
 ```bash
-bun cli.js related-companies --ticker AAPL
+npx massive related-companies --ticker AAPL
 ```

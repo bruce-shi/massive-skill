@@ -9,7 +9,7 @@ Get aggregate bars (OHLCV) for an options contract over a given date range.
 
 **Usage:**
 ```bash
-bun cli.js options-aggs --ticker <ticker> --from <YYYY-MM-DD> --to <YYYY-MM-DD> [options]
+npx massive options-aggs --ticker <ticker> --from <YYYY-MM-DD> --to <YYYY-MM-DD> [options]
 ```
 
 **Parameters:**
@@ -24,7 +24,7 @@ bun cli.js options-aggs --ticker <ticker> --from <YYYY-MM-DD> --to <YYYY-MM-DD> 
 
 **Example:**
 ```bash
-bun cli.js options-aggs --ticker O:AAPL230616C00150000 --from 2025-01-01 --to 2025-01-31 --timespan day --limit 10
+npx massive options-aggs --ticker O:AAPL230616C00150000 --from 2025-01-01 --to 2025-01-31 --timespan day --limit 10
 ```
 
 ### options-trades
@@ -32,7 +32,7 @@ Get trades for an options contract.
 
 **Usage:**
 ```bash
-bun cli.js options-trades --ticker <ticker> [options]
+npx massive options-trades --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -45,7 +45,7 @@ bun cli.js options-trades --ticker <ticker> [options]
 
 **Example:**
 ```bash
-bun cli.js options-trades --ticker O:AAPL230616C00150000 --limit 5
+npx massive options-trades --ticker O:AAPL230616C00150000 --limit 5
 ```
 
 ### options-quotes
@@ -53,7 +53,7 @@ Get quotes for an options contract.
 
 **Usage:**
 ```bash
-bun cli.js options-quotes --ticker <ticker> [options]
+npx massive options-quotes --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -66,7 +66,7 @@ bun cli.js options-quotes --ticker <ticker> [options]
 
 **Example:**
 ```bash
-bun cli.js options-quotes --ticker O:AAPL230616C00150000 --limit 5
+npx massive options-quotes --ticker O:AAPL230616C00150000 --limit 5
 ```
 
 ### options-open-close
@@ -74,7 +74,7 @@ Get the daily open, close, and after-hours prices for an options contract on a s
 
 **Usage:**
 ```bash
-bun cli.js options-open-close --ticker <ticker> --date <YYYY-MM-DD> [options]
+npx massive options-open-close --ticker <ticker> --date <YYYY-MM-DD> [options]
 ```
 
 **Parameters:**
@@ -84,7 +84,7 @@ bun cli.js options-open-close --ticker <ticker> --date <YYYY-MM-DD> [options]
 
 **Example:**
 ```bash
-bun cli.js options-open-close --ticker O:AAPL230616C00150000 --date 2025-01-15
+npx massive options-open-close --ticker O:AAPL230616C00150000 --date 2025-01-15
 ```
 
 ### options-chain
@@ -92,7 +92,7 @@ Get a snapshot of options chain for an underlying asset.
 
 **Usage:**
 ```bash
-bun cli.js options-chain --underlying <ticker> [options]
+npx massive options-chain --underlying <ticker> [options]
 ```
 
 **Parameters:**
@@ -106,7 +106,7 @@ bun cli.js options-chain --underlying <ticker> [options]
 
 **Example:**
 ```bash
-bun cli.js options-chain --underlying AAPL --type call
+npx massive options-chain --underlying AAPL --type call
 ```
 
 ### options-contract
@@ -114,7 +114,7 @@ Get details for a specific options contract.
 
 **Usage:**
 ```bash
-bun cli.js options-contract --underlying <ticker> --contract <contract_id>
+npx massive options-contract --underlying <ticker> --contract <contract_id>
 ```
 
 **Parameters:**
@@ -123,7 +123,7 @@ bun cli.js options-contract --underlying <ticker> --contract <contract_id>
 
 **Example:**
 ```bash
-bun cli.js options-contract --underlying AAPL --contract O:AAPL230616C00150000
+npx massive options-contract --underlying AAPL --contract O:AAPL230616C00150000
 ```
 
 ### options-previous
@@ -131,7 +131,7 @@ Get the previous day's open, high, low, and close (OHLC) for an options contract
 
 **Usage:**
 ```bash
-bun cli.js options-previous --ticker <ticker> [options]
+npx massive options-previous --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -140,7 +140,7 @@ bun cli.js options-previous --ticker <ticker> [options]
 
 **Example:**
 ```bash
-bun cli.js options-previous --ticker O:AAPL230616C00150000
+npx massive options-previous --ticker O:AAPL230616C00150000
 ```
 
 ### options-sma
@@ -148,7 +148,7 @@ Get Simple Moving Average (SMA) for an options contract.
 
 **Usage:**
 ```bash
-bun cli.js options-sma --ticker <ticker> [options]
+npx massive options-sma --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -164,7 +164,7 @@ bun cli.js options-sma --ticker <ticker> [options]
 
 **Example:**
 ```bash
-bun cli.js options-sma --ticker O:AAPL230616C00150000 --window 50
+npx massive options-sma --ticker O:AAPL230616C00150000 --window 50
 ```
 
 ### options-ema
@@ -172,7 +172,7 @@ Get Exponential Moving Average (EMA) for an options contract.
 
 **Usage:**
 ```bash
-bun cli.js options-ema --ticker <ticker> [options]
+npx massive options-ema --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -188,7 +188,7 @@ bun cli.js options-ema --ticker <ticker> [options]
 
 **Example:**
 ```bash
-bun cli.js options-ema --ticker O:AAPL230616C00150000 --window 50
+npx massive options-ema --ticker O:AAPL230616C00150000 --window 50
 ```
 
 ### options-rsi
@@ -196,7 +196,7 @@ Get Relative Strength Index (RSI) for an options contract.
 
 **Usage:**
 ```bash
-bun cli.js options-rsi --ticker <ticker> [options]
+npx massive options-rsi --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -212,7 +212,7 @@ bun cli.js options-rsi --ticker <ticker> [options]
 
 **Example:**
 ```bash
-bun cli.js options-rsi --ticker O:AAPL230616C00150000 --window 14
+npx massive options-rsi --ticker O:AAPL230616C00150000 --window 14
 ```
 
 ### options-macd
@@ -220,7 +220,7 @@ Get Moving Average Convergence/Divergence (MACD) for an options contract.
 
 **Usage:**
 ```bash
-bun cli.js options-macd --ticker <ticker> [options]
+npx massive options-macd --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -238,7 +238,7 @@ bun cli.js options-macd --ticker <ticker> [options]
 
 **Example:**
 ```bash
-bun cli.js options-macd --ticker O:AAPL230616C00150000
+npx massive options-macd --ticker O:AAPL230616C00150000
 ```
 
 ### last-options-trade
@@ -246,7 +246,7 @@ Get the most recent trade for an options contract.
 
 **Usage:**
 ```bash
-bun cli.js last-options-trade --ticker <ticker>
+npx massive last-options-trade --ticker <ticker>
 ```
 
 **Parameters:**
@@ -254,5 +254,5 @@ bun cli.js last-options-trade --ticker <ticker>
 
 **Example:**
 ```bash
-bun cli.js last-options-trade --ticker O:AAPL230616C00150000
+npx massive last-options-trade --ticker O:AAPL230616C00150000
 ```

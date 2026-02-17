@@ -1,14 +1,19 @@
 {
-  "name": "polygon",
+  "name": "massive-cli",
+  "version": "0.0.1",
+  "description": "Polygon/Massive Market Data CLI",
   "module": "index.ts",
   "type": "module",
-  "private": true,
   "bin": {
-    "polygon": "./dist/cli.js"
+    "massive": "./dist/cli.js"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "bun build src/cli.ts --outdir dist --target bun && cp skills/SKILL.md dist/SKILL.md && rm -rf dist/references && cp -r skills/references dist/references",
-    "start": "bun dist/cli.js"
+    "build": "bun build src/cli.ts --outdir dist --target node",
+    "start": "bun dist/cli.js",
+    "prepublishOnly": "bun run build"
   },
   "dependencies": {
     "@massive.com/client-js": "^10.3.0"

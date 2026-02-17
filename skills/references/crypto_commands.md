@@ -38,7 +38,7 @@ Used in technical indicators (`crypto-sma`, `crypto-ema`, `crypto-rsi`, `crypto-
 
 **Example**:
 ```bash
-bun cli.js crypto-aggs --ticker X:BTCUSD --from 2023-01-01 --to 2023-01-31 --timespan day
+npx massive crypto-aggs --ticker X:BTCUSD --from 2023-01-01 --to 2023-01-31 --timespan day
 ```
 
 ### `crypto-trades`
@@ -51,7 +51,7 @@ bun cli.js crypto-aggs --ticker X:BTCUSD --from 2023-01-01 --to 2023-01-31 --tim
 
 **Example**:
 ```bash
-bun cli.js crypto-trades --ticker X:BTCUSD --limit 5
+npx massive crypto-trades --ticker X:BTCUSD --limit 5
 ```
 
 ### `crypto-snapshot`
@@ -59,7 +59,7 @@ bun cli.js crypto-trades --ticker X:BTCUSD --limit 5
 
 **Example**:
 ```bash
-bun cli.js crypto-snapshot --ticker X:BTCUSD
+npx massive crypto-snapshot --ticker X:BTCUSD
 ```
 
 ### `crypto-snapshot-direction`
@@ -67,7 +67,7 @@ bun cli.js crypto-snapshot --ticker X:BTCUSD
 
 **Example**:
 ```bash
-bun cli.js crypto-snapshot-direction --direction gainers
+npx massive crypto-snapshot-direction --direction gainers
 ```
 
 ### `crypto-snapshot-tickers`
@@ -75,7 +75,7 @@ bun cli.js crypto-snapshot-direction --direction gainers
 
 **Example**:
 ```bash
-bun cli.js crypto-snapshot-tickers --tickers X:BTCUSD,X:ETHUSD
+npx massive crypto-snapshot-tickers --tickers X:BTCUSD,X:ETHUSD
 ```
 
 ### `crypto-open-close`
@@ -86,7 +86,7 @@ bun cli.js crypto-snapshot-tickers --tickers X:BTCUSD,X:ETHUSD
 
 **Example**:
 ```bash
-bun cli.js crypto-open-close --from BTC --to USD --date 2023-01-01
+npx massive crypto-open-close --from BTC --to USD --date 2023-01-01
 ```
 
 ### `crypto-previous`
@@ -95,7 +95,7 @@ bun cli.js crypto-open-close --from BTC --to USD --date 2023-01-01
 
 **Example**:
 ```bash
-bun cli.js crypto-previous --ticker X:BTCUSD
+npx massive crypto-previous --ticker X:BTCUSD
 ```
 
 ### `crypto-grouped`
@@ -104,7 +104,7 @@ bun cli.js crypto-previous --ticker X:BTCUSD
 
 **Example**:
 ```bash
-bun cli.js crypto-grouped --date 2023-01-01
+npx massive crypto-grouped --date 2023-01-01
 ```
 
 ### Technical Indicators (`crypto-sma`, `crypto-ema`, `crypto-rsi`, `crypto-macd`)
@@ -126,10 +126,10 @@ Specific to `crypto-macd`:
 **Example**:
 ```bash
 # SMA
-bun cli.js crypto-sma --ticker X:BTCUSD --timespan day --window 50
+npx massive crypto-sma --ticker X:BTCUSD --timespan day --window 50
 
 # MACD
-bun cli.js crypto-macd --ticker X:BTCUSD --timespan day --short-window 12 --long-window 26 --signal-window 9
+npx massive crypto-macd --ticker X:BTCUSD --timespan day --short-window 12 --long-window 26 --signal-window 9
 ```
 
 ### `last-crypto-trade`
@@ -138,5 +138,5 @@ bun cli.js crypto-macd --ticker X:BTCUSD --timespan day --short-window 12 --long
 
 **Example**:
 ```bash
-bun cli.js last-crypto-trade --from BTC --to USD
+npx massive last-crypto-trade --from BTC --to USD
 ```

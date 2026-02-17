@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env node
 import { api } from "./lib/api";
 import { parseArgs } from "./lib/utils";
 import { stocksCommands } from "./commands/stocks";

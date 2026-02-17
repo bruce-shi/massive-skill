@@ -23,6 +23,17 @@ A CLI tool for accessing [Polygon.io](https://polygon.io) financial data (Stocks
 
 ## Usage
 
+### Via NPX (Recommended)
+
+Run commands directly without installing:
+
+```bash
+npx massive <command> [options]
+```
+*(Requires Bun to be installed)*
+
+### Local Installation
+
 Run commands using the built CLI:
 
 ```bash
@@ -33,20 +44,20 @@ bun dist/cli.js <command> [options]
 
 **Stocks:**
 ```bash
-bun dist/cli.js stocks-aggs --ticker AAPL --from 2023-01-01 --to 2023-01-31
+npx massive stocks-aggs --ticker AAPL --from 2023-01-01 --to 2023-01-31
 ```
 
 **Crypto:**
 ```bash
-bun dist/cli.js crypto-snapshot --ticker X:BTCUSD
+npx massive crypto-snapshot --ticker X:BTCUSD
 ```
 
 **Market Status:**
 ```bash
-bun dist/cli.js market-status
+npx massive market-status
 ```
 
 Use `--help` to see all available commands:
 ```bash
-bun dist/cli.js --help
+npx massive --help
 ```

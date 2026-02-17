@@ -9,7 +9,7 @@ Get aggregate bars (OHLCV) for an index over a given date range.
 
 **Usage:**
 ```bash
-bun cli.js indices-aggs --ticker <ticker> --from <YYYY-MM-DD> --to <YYYY-MM-DD> [options]
+npx massive indices-aggs --ticker <ticker> --from <YYYY-MM-DD> --to <YYYY-MM-DD> [options]
 ```
 
 **Parameters:**
@@ -23,7 +23,7 @@ bun cli.js indices-aggs --ticker <ticker> --from <YYYY-MM-DD> --to <YYYY-MM-DD> 
 
 **Example:**
 ```bash
-bun cli.js indices-aggs --ticker I:SPX --from 2025-01-01 --to 2025-01-31 --timespan day --limit 10
+npx massive indices-aggs --ticker I:SPX --from 2025-01-01 --to 2025-01-31 --timespan day --limit 10
 ```
 
 ### indices-open-close
@@ -31,7 +31,7 @@ Get the daily open, close, and after-hours prices for an index on a specific dat
 
 **Usage:**
 ```bash
-bun cli.js indices-open-close --ticker <ticker> --date <YYYY-MM-DD>
+npx massive indices-open-close --ticker <ticker> --date <YYYY-MM-DD>
 ```
 
 **Parameters:**
@@ -40,7 +40,7 @@ bun cli.js indices-open-close --ticker <ticker> --date <YYYY-MM-DD>
 
 **Example:**
 ```bash
-bun cli.js indices-open-close --ticker I:SPX --date 2025-01-15
+npx massive indices-open-close --ticker I:SPX --date 2025-01-15
 ```
 
 ### indices-snapshot
@@ -48,7 +48,7 @@ Get the most recent snapshot for an index.
 
 **Usage:**
 ```bash
-bun cli.js indices-snapshot [--ticker <ticker>]
+npx massive indices-snapshot [--ticker <ticker>]
 ```
 
 **Parameters:**
@@ -56,7 +56,7 @@ bun cli.js indices-snapshot [--ticker <ticker>]
 
 **Example:**
 ```bash
-bun cli.js indices-snapshot --ticker I:SPX
+npx massive indices-snapshot --ticker I:SPX
 ```
 
 ### indices-previous
@@ -64,7 +64,7 @@ Get the previous day's open, high, low, and close (OHLC) for an index.
 
 **Usage:**
 ```bash
-bun cli.js indices-previous --ticker <ticker>
+npx massive indices-previous --ticker <ticker>
 ```
 
 **Parameters:**
@@ -72,7 +72,7 @@ bun cli.js indices-previous --ticker <ticker>
 
 **Example:**
 ```bash
-bun cli.js indices-previous --ticker I:SPX
+npx massive indices-previous --ticker I:SPX
 ```
 
 ### indices-sma
@@ -80,7 +80,7 @@ Get Simple Moving Average (SMA) for an index.
 
 **Usage:**
 ```bash
-bun cli.js indices-sma --ticker <ticker> [options]
+npx massive indices-sma --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -96,7 +96,7 @@ bun cli.js indices-sma --ticker <ticker> [options]
 
 **Example:**
 ```bash
-bun cli.js indices-sma --ticker I:SPX --window 50
+npx massive indices-sma --ticker I:SPX --window 50
 ```
 
 ### indices-ema
@@ -104,7 +104,7 @@ Get Exponential Moving Average (EMA) for an index.
 
 **Usage:**
 ```bash
-bun cli.js indices-ema --ticker <ticker> [options]
+npx massive indices-ema --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -120,7 +120,7 @@ bun cli.js indices-ema --ticker <ticker> [options]
 
 **Example:**
 ```bash
-bun cli.js indices-ema --ticker I:SPX --window 50
+npx massive indices-ema --ticker I:SPX --window 50
 ```
 
 ### indices-rsi
@@ -128,7 +128,7 @@ Get Relative Strength Index (RSI) for an index.
 
 **Usage:**
 ```bash
-bun cli.js indices-rsi --ticker <ticker> [options]
+npx massive indices-rsi --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -144,7 +144,7 @@ bun cli.js indices-rsi --ticker <ticker> [options]
 
 **Example:**
 ```bash
-bun cli.js indices-rsi --ticker I:SPX --window 14
+npx massive indices-rsi --ticker I:SPX --window 14
 ```
 
 ### indices-macd
@@ -152,7 +152,7 @@ Get Moving Average Convergence/Divergence (MACD) for an index.
 
 **Usage:**
 ```bash
-bun cli.js indices-macd --ticker <ticker> [options]
+npx massive indices-macd --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -170,5 +170,5 @@ bun cli.js indices-macd --ticker <ticker> [options]
 
 **Example:**
 ```bash
-bun cli.js indices-macd --ticker I:SPX
+npx massive indices-macd --ticker I:SPX
 ```

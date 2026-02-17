@@ -9,7 +9,7 @@ Get the most recent news articles relating to a stock ticker symbol, including a
 
 **Usage:**
 ```bash
-bun cli.js news [options]
+npx massive news [options]
 ```
 
 **Parameters:**
@@ -29,5 +29,5 @@ bun cli.js news [options]
 
 **Example:**
 ```bash
-bun cli.js news --ticker AAPL --limit 5
+npx massive news --ticker AAPL --limit 5
 ```
