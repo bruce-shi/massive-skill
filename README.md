@@ -1,6 +1,6 @@
-# Polygon (Massive) API CLI
+# Massive(Polygon) API CLI
 
-A CLI tool for accessing [Polygon.io](https://polygon.io) financial data (Stocks, Crypto, Forex, Options, Indices) using [Bun](https://bun.sh).
+A CLI tool for accessing [Massive(Polygon)](https://massive.com) financial data (Stocks, Crypto, Forex, Options, Indices) using [Bun](https://bun.sh).
 
 ## Usage
 

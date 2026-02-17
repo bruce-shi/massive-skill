@@ -1,17 +1,17 @@
 ---
-name: polygon-api
-description: Access Polygon/Massive stock, crypto, forex, options, indices, futures, market data, and news APIs via CLI.
+name: massive-api
+description: Access Massive(Polygon) stock, crypto, forex, options, indices, futures, market data, and news APIs via CLI.
 metadata:
   openclaw:
     requires:
       bins: ["npx"]
-      env: ["POLY_API_KEY"]
-    primaryEnv: "POLY_API_KEY"
+      env: ["MASSIVE_API_KEY"]
+    primaryEnv: "MASSIVE_API_KEY"
 ---
 
-# Polygon (Massive) Market Data Skill
+# Massive(Polygon) Market Data Skill
 
-A CLI tool and JS client wrapper for the [Polygon/Massive](https://massive.com) financial data APIs. Covers stocks, crypto, forex, options, indices, futures, market status, news, and reference data.
+A CLI tool and JS client wrapper for the [Massive(Polygon)](https://massive.com) financial data APIs. Covers stocks, crypto, forex, options, indices, futures, market status, news, and reference data.
 
 ## CLI Usage
 

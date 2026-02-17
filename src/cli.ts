@@ -23,8 +23,8 @@ const COMMANDS: CommandMap = {
 };
 
 function showHelp() {
-  console.log("polygon - Polygon/Massive Market Data CLI\n");
-  console.log("Usage: polygon <command> [options]\n");
+  console.log("massive - Massive Market Data CLI\n");
+  console.log("Usage: npx massive <command> [options]\n");
   console.log("Commands:");
   const maxLen = Math.max(...Object.keys(COMMANDS).map((k) => k.length));
 
@@ -78,19 +78,21 @@ function showHelp() {
     }
   }
 
-  console.log("Use 'polygon <command> --help' for command-specific options.");
-  console.log("Set POLY_API_KEY in .env or environment.");
+  console.log(
+    "Use 'npx massive <command> --help' for command-specific options.",
+  );
+  console.log("Set MASSIVE_API_KEY in .env or environment.");
 }
 
 function showCommandHelp(command: string) {
   const cmd = COMMANDS[command];
   if (!cmd) {
     console.error(`Unknown command: ${command}`);
-    console.error("Run 'polygon help' to see available commands.");
+    console.error("Run 'npx massive help' to see available commands.");
     process.exit(1);
   }
   console.log(`${command} - ${cmd.desc}`);
-  console.log(`\nUsage: polygon ${command} ${cmd.usage}`);
+  console.log(`\nUsage: npx massive ${command} ${cmd.usage}`);
 }
 
 async function main() {
@@ -109,7 +111,7 @@ async function main() {
   const cmd = COMMANDS[command];
   if (!cmd) {
     console.error(`Unknown command: ${command}`);
-    console.error("Run 'polygon help' to see available commands.");
+    console.error("Run 'npx massive help' to see available commands.");
     process.exit(1);
   }
 
