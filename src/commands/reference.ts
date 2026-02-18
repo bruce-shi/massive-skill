@@ -1,3 +1,4 @@
+import { Command } from "commander";
 import type {
   DefaultApiListTickersRequest,
   ListTickersTypeEnum,
@@ -15,6 +16,7 @@ import type {
   ListConditionsAssetClassEnum,
   ListConditionsDataTypeEnum,
   ListConditionsSipEnum,
+  ListConditionsSortEnum,
   DefaultApiListDividendsRequest,
   ListDividendsOrderEnum,
   ListDividendsSortEnum,
@@ -30,169 +32,240 @@ import type {
   ListIPOsOrderEnum,
   ListIPOsSortEnum,
   DefaultApiGetRelatedCompaniesRequest,
-  ListConditionsSortEnum,
 } from "@massive.com/client-js";
 import { api } from "../lib/api";
-import type { CommandMap } from "../lib/types";
-import { output, requireFlag, num, bool } from "../lib/utils";
+import { output, num } from "../lib/utils";
 
-export const referenceCommands: CommandMap = {
-  tickers: {
-    desc: "List/search tickers",
-    usage:
-      "[--search apple] [--type CS] [--market stocks] [--exchange NYS] [--cusip ...] [--cik ...] [--date 2025-01-01] [--active true] [--limit 10] [--sort ticker] [--order asc]",
-    handler: async (_api, f) => {
+export function createTickersCommand(): Command {
+  return new Command("tickers")
+    .description("List/search tickers")
+    .option("--search <search>", "Search query")
+    .option("-t, --type <type>", "Ticker type (CS, etc.)")
+    .option("-m, --market <market>", "Market (stocks, crypto, forex)")
+    .option("-e, --exchange <exchange>", "Exchange code")
+    .option("-c, --cusip <cusip>", "CUSIP")
+    .option("--cik <cik>", "CIK")
+    .option("-d, --date <date>", "Date (YYYY-MM-DD)")
+    .option("-a, --active", "Active only")
+    .option("-l, --limit <number>", "Limit number of results", "10")
+    .option("-s, --sort <sort>", "Sort field", "ticker")
+    .option("-o, --order <order>", "Order (asc, desc)", "asc")
+    .action(async (options) => {
       const params: DefaultApiListTickersRequest = {
-        ticker: f.ticker,
-        type: f.type as ListTickersTypeEnum,
-        market: f.market as ListTickersMarketEnum,
-        exchange: f.exchange,
-        cusip: f.cusip,
-        cik: f.cik,
-        date: f.date,
-        search: f.search,
-        active: bool(f.active),
-        order: f.order as ListTickersOrderEnum,
-        limit: num(f.limit),
-        sort: f.sort as ListTickersSortEnum,
+        ticker: options.ticker,
+        type: options.type as ListTickersTypeEnum,
+        market: options.market as ListTickersMarketEnum,
+        exchange: options.exchange,
+        cusip: options.cusip,
+        cik: options.cik,
+        date: options.date,
+        search: options.search,
+        active: options.active,
+        order: options.order as ListTickersOrderEnum,
+        limit: num(options.limit),
+        sort: options.sort as ListTickersSortEnum,
       };
       await output(api.listTickers(params));
-    },
-  },
-  "ticker-details": {
-    desc: "Ticker details",
-    usage: "--ticker AAPL [--date 2025-01-01]",
-    handler: async (_api, f) => {
+    });
+}
+
+export function createTickerDetailsCommand(): Command {
+  return new Command("ticker-details")
+    .description("Ticker details")
+    .requiredOption("-t, --ticker <ticker>", "Ticker symbol")
+    .option("-d, --date <date>", "Date (YYYY-MM-DD)")
+    .action(async (options) => {
       const params: DefaultApiGetTickerRequest = {
-        ticker: requireFlag(f, "ticker"),
-        date: f.date,
+        ticker: options.ticker,
+        date: options.date,
       };
       await output(api.getTicker(params));
-    },
-  },
-  "ticker-types": {
-    desc: "List ticker types",
-    usage: "[--asset-class stocks] [--locale us]",
-    handler: async (_api, f) => {
+    });
+}
+
+export function createTickerTypesCommand(): Command {
+  return new Command("ticker-types")
+    .description("List ticker types")
+    .option(
+      "--asset-class <asset-class>",
+      "Asset class (stocks, crypto, forex)",
+    )
+    .option("-l, --locale <locale>", "Locale (us, global)")
+    .action(async (options) => {
       const params: DefaultApiListTickerTypesRequest = {
-        assetClass: f["asset-class"] as ListTickerTypesAssetClassEnum,
-        locale: f.locale as ListTickerTypesLocaleEnum,
+        assetClass: options["asset-class"] as ListTickerTypesAssetClassEnum,
+        locale: options.locale as ListTickerTypesLocaleEnum,
       };
       await output(api.listTickerTypes(params));
-    },
-  },
-  exchanges: {
-    desc: "List exchanges",
-    usage: "[--asset-class stocks] [--locale us]",
-    handler: async (_api, f) => {
+    });
+}
+
+export function createExchangesCommand(): Command {
+  return new Command("exchanges")
+    .description("List exchanges")
+    .option(
+      "--asset-class <asset-class>",
+      "Asset class (stocks, crypto, forex)",
+    )
+    .option("-l, --locale <locale>", "Locale (us, global)")
+    .action(async (options) => {
       const params: DefaultApiListExchangesRequest = {
-        assetClass: f["asset-class"] as ListExchangesAssetClassEnum,
-        locale: f.locale as ListExchangesLocaleEnum,
+        assetClass: options["asset-class"] as ListExchangesAssetClassEnum,
+        locale: options.locale as ListExchangesLocaleEnum,
       };
       await output(api.listExchanges(params));
-    },
-  },
-  conditions: {
-    desc: "List conditions",
-    usage:
-      "[--asset-class stocks] [--data-type trade] [--id 1] [--sip CTA] [--limit 10] [--sort name] [--order asc]",
-    handler: async (_api, f) => {
+    });
+}
+
+export function createConditionsCommand(): Command {
+  return new Command("conditions")
+    .description("List conditions")
+    .option(
+      "--asset-class <asset-class>",
+      "Asset class (stocks, crypto, forex)",
+    )
+    .option("--data-type <data-type>", "Data type (trade, quote)")
+    .option("-i, --id <id>", "Condition ID")
+    .option("-s, --sip <sip>", "SIP (CTA, UTP, etc.)")
+    .option("-l, --limit <number>", "Limit number of results", "10")
+    .option("--sort <sort>", "Sort field", "name")
+    .option("-o, --order <order>", "Order (asc, desc)", "asc")
+    .action(async (options) => {
       const params: DefaultApiListConditionsRequest = {
-        assetClass: f["asset-class"] as ListConditionsAssetClassEnum,
-        dataType: f["data-type"] as ListConditionsDataTypeEnum,
-        id: num(f.id),
-        sip: f.sip as ListConditionsSipEnum,
-        // @ts-expect-error - The client library definition might be missing sort, order, limit
-        order: f.order,
-        limit: num(f.limit),
-        sort: f.sort! as ListConditionsSortEnum,
+        assetClass: options["asset-class"] as ListConditionsAssetClassEnum,
+        dataType: options["data-type"] as ListConditionsDataTypeEnum,
+        id: num(options.id),
+        sip: options.sip as ListConditionsSipEnum,
+        order: options.order,
+        limit: num(options.limit),
+        sort: options.sort as ListConditionsSortEnum,
       };
       await output(api.listConditions(params));
-    },
-  },
-  dividends: {
-    desc: "List dividends",
-    usage:
-      "[--ticker AAPL] [--ex-dividend-date 2025-01-01] [--record-date 2025-01-01] [--declaration-date 2025-01-01] [--pay-date 2025-01-01] [--frequency 4] [--cash-amount 0.23] [--dividend-type CD] [--limit 10] [--sort ex_dividend_date] [--order asc]",
-    handler: async (_api, f) => {
+    });
+}
+
+export function createDividendsCommand(): Command {
+  return new Command("dividends")
+    .description("List dividends")
+    .option("-t, --ticker <ticker>", "Ticker symbol")
+    .option("--ex-dividend-date <date>", "Ex-dividend date")
+    .option("--record-date <date>", "Record date")
+    .option("--declaration-date <date>", "Declaration date")
+    .option("--pay-date <date>", "Pay date")
+    .option("-f, --frequency <number>", "Frequency")
+    .option("--cash-amount <number>", "Cash amount")
+    .option("--dividend-type <type>", "Dividend type")
+    .option("-l, --limit <number>", "Limit number of results", "10")
+    .option("-s, --sort <sort>", "Sort field", "ex_dividend_date")
+    .option("-o, --order <order>", "Order (asc, desc)", "asc")
+    .action(async (options) => {
       const params: DefaultApiListDividendsRequest = {
-        ticker: f.ticker,
-        exDividendDate: f["ex-dividend-date"],
-        recordDate: f["record-date"],
-        declarationDate: f["declaration-date"],
-        payDate: f["pay-date"],
-        frequency: num(f.frequency) as ListDividendsFrequencyEnum,
-        cashAmount: num(f["cash-amount"]),
-        dividendType: f["dividend-type"] as any, // Enum might be missing or complex
-        order: f.order as ListDividendsOrderEnum,
-        limit: num(f.limit),
-        sort: f.sort as ListDividendsSortEnum,
+        ticker: options.ticker,
+        exDividendDate: options["ex-dividend-date"],
+        recordDate: options["record-date"],
+        declarationDate: options["declaration-date"],
+        payDate: options["pay-date"],
+        frequency: num(options.frequency) as ListDividendsFrequencyEnum,
+        cashAmount: num(options["cash-amount"]),
+        dividendType: options["dividend-type"] as any,
+        order: options.order as ListDividendsOrderEnum,
+        limit: num(options.limit),
+        sort: options.sort as ListDividendsSortEnum,
       };
       await output(api.listDividends(params));
-    },
-  },
-  "stock-splits": {
-    desc: "List stock splits",
-    usage:
-      "[--ticker AAPL] [--execution-date 2025-01-01] [--reverse-split false] [--limit 10] [--sort execution_date] [--order asc]",
-    handler: async (_api, f) => {
+    });
+}
+
+export function createStockSplitsCommand(): Command {
+  return new Command("stock-splits")
+    .description("List stock splits")
+    .option("-t, --ticker <ticker>", "Ticker symbol")
+    .option("--execution-date <date>", "Execution date")
+    .option("--reverse-split", "Reverse split")
+    .option("-l, --limit <number>", "Limit number of results", "10")
+    .option("-s, --sort <sort>", "Sort field", "execution_date")
+    .option("-o, --order <order>", "Order (asc, desc)", "asc")
+    .action(async (options) => {
       const params: DefaultApiListStockSplitsRequest = {
-        ticker: f.ticker,
-        executionDate: f["execution-date"],
-        reverseSplit: bool(f["reverse-split"]),
-        order: f.order as ListStockSplitsOrderEnum,
-        limit: num(f.limit),
-        sort: f.sort as ListStockSplitsSortEnum,
+        ticker: options.ticker,
+        executionDate: options["execution-date"],
+        reverseSplit: options.reverseSplit,
+        order: options.order as ListStockSplitsOrderEnum,
+        limit: num(options.limit),
+        sort: options.sort as ListStockSplitsSortEnum,
       };
       await output(api.listStockSplits(params));
-    },
-  },
-  financials: {
-    desc: "Company financials",
-    usage:
-      "[--ticker AAPL] [--cik ...] [--company-name ...] [--sic ...] [--filing-date 2025-01-01] [--period-of-report-date 2025-01-01] [--timeframe quarterly] [--include-sources false] [--limit 10] [--sort filing_date] [--order asc]",
-    handler: async (_api, f) => {
+    });
+}
+
+export function createFinancialsCommand(): Command {
+  return new Command("financials")
+    .description("Company financials")
+    .option("-t, --ticker <ticker>", "Ticker symbol")
+    .option("--cik <cik>", "CIK")
+    .option("--company-name <name>", "Company name")
+    .option("--sic <sic>", "SIC code")
+    .option("--filing-date <date>", "Filing date")
+    .option("--period-of-report-date <date>", "Period of report date")
+    .option(
+      "--timeframe <timeframe>",
+      "Timeframe (annual, quarterly)",
+      "quarterly",
+    )
+    .option("--include-sources", "Include sources", false)
+    .option("-l, --limit <number>", "Limit number of results", "10")
+    .option("-s, --sort <sort>", "Sort field", "filing_date")
+    .option("-o, --order <order>", "Order (asc, desc)", "asc")
+    .action(async (options) => {
       const params: DefaultApiListFinancialsRequest = {
-        ticker: f.ticker,
-        cik: f.cik,
-        companyName: f["company-name"],
-        sic: f.sic,
-        filingDate: f["filing-date"],
-        periodOfReportDate: f["period-of-report-date"],
-        timeframe: f.timeframe as ListFinancialsTimeframeEnum,
-        includeSources: bool(f["include-sources"]),
-        order: f.order as ListFinancialsOrderEnum,
-        limit: num(f.limit),
-        sort: f.sort as ListFinancialsSortEnum,
+        ticker: options.ticker,
+        cik: options.cik,
+        companyName: options["company-name"],
+        sic: options.sic,
+        filingDate: options["filing-date"],
+        periodOfReportDate: options["period-of-report-date"],
+        timeframe: options.timeframe as ListFinancialsTimeframeEnum,
+        includeSources: options["include-sources"],
+        order: options.order as ListFinancialsOrderEnum,
+        limit: num(options.limit),
+        sort: options.sort as ListFinancialsSortEnum,
       };
       await output(api.listFinancials(params));
-    },
-  },
-  ipos: {
-    desc: "List IPOs",
-    usage:
-      "[--ticker AAPL] [--us-code ...] [--isin ...] [--listing-date 2025-01-15] [--limit 10] [--sort listing_date] [--order asc]",
-    handler: async (_api, f) => {
+    });
+}
+
+export function createIposCommand(): Command {
+  return new Command("ipos")
+    .description("List IPOs")
+    .option("-t, --ticker <ticker>", "Ticker symbol")
+    .option("--us-code <code>", "US code")
+    .option("--isin <isin>", "ISIN")
+    .option("--listing-date <date>", "Listing date")
+    .option("-l, --limit <number>", "Limit number of results", "10")
+    .option("-s, --sort <sort>", "Sort field", "listing_date")
+    .option("-o, --order <order>", "Order (asc, desc)", "asc")
+    .action(async (options) => {
       const params: DefaultApiListIPOsRequest = {
-        ticker: f.ticker,
-        usCode: f["us-code"],
-        isin: f.isin,
-        listingDate: f["listing-date"],
-        order: f.order as ListIPOsOrderEnum,
-        limit: num(f.limit),
-        sort: f.sort as ListIPOsSortEnum,
+        ticker: options.ticker,
+        usCode: options["us-code"],
+        isin: options.isin,
+        listingDate: options["listing-date"],
+        order: options.order as ListIPOsOrderEnum,
+        limit: num(options.limit),
+        sort: options.sort as ListIPOsSortEnum,
       };
       await output(api.listIPOs(params));
-    },
-  },
-  "related-companies": {
-    desc: "Related companies",
-    usage: "--ticker AAPL",
-    handler: async (_api, f) => {
+    });
+}
+
+export function createRelatedCompaniesCommand(): Command {
+  return new Command("related-companies")
+    .description("Related companies")
+    .requiredOption("-t, --ticker <ticker>", "Ticker symbol")
+    .action(async (options) => {
       const params: DefaultApiGetRelatedCompaniesRequest = {
-        ticker: requireFlag(f, "ticker"),
+        ticker: options.ticker,
       };
       await output(api.getRelatedCompanies(params));
-    },
-  },
-};
+    });
+}

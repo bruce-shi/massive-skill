@@ -1,9 +1,16 @@
-import { DefaultApi } from "@massive.com/client-js";
+import type { Command } from "commander";
+import type { Flags } from "./utils";
 
-export interface Command {
+export type CommandMap = Record<string, CommandDef>;
+
+export interface CommandDef {
   desc: string;
   usage: string;
-  handler: (api: DefaultApi, flags: Record<string, string>) => Promise<void>;
+  handler: (api: DefaultApi, flags: Flags) => Promise<void>;
 }
 
-export type CommandMap = Record<string, Command>;
+import { DefaultApi } from "@massive.com/client-js";
+export { DefaultApi };
+
+// New type for Commander command registration functions
+export type CommandRegistrar = (program: Command) => void;

@@ -1,34 +1,44 @@
+import { Command } from "commander";
 import type {
   DefaultApiListNewsRequest,
   ListNewsOrderEnum,
   ListNewsSortEnum,
 } from "@massive.com/client-js";
 import { api } from "../lib/api";
-import type { CommandMap } from "../lib/types";
 import { output, num } from "../lib/utils";
 
-export const newsCommands: CommandMap = {
-  news: {
-    desc: "Market news",
-    usage:
-      "[--ticker AAPL] [--published-utc 2025-01-01] [--ticker-gte AAPL] [--ticker-gt AAPL] [--ticker-lte AAPL] [--ticker-lt AAPL] [--published-utc-gte 2025-01-01] [--published-utc-gt 2025-01-01] [--published-utc-lte 2025-01-01] [--published-utc-lt 2025-01-01] [--limit 10] [--sort published_utc] [--order desc]",
-    handler: async (_api, f) => {
+export function createNewsCommand(): Command {
+  return new Command("news")
+    .description("Market news")
+    .option("-t, --ticker <ticker>", "Ticker symbol")
+    .option("--published-utc <date>", "Published UTC date (YYYY-MM-DD)")
+    .option("--ticker-gte <ticker>", "Ticker greater than or equal")
+    .option("--ticker-gt <ticker>", "Ticker greater than")
+    .option("--ticker-lte <ticker>", "Ticker less than or equal")
+    .option("--ticker-lt <ticker>", "Ticker less than")
+    .option("--published-utc-gte <date>", "Published UTC greater than or equal")
+    .option("--published-utc-gt <date>", "Published UTC greater than")
+    .option("--published-utc-lte <date>", "Published UTC less than or equal")
+    .option("--published-utc-lt <date>", "Published UTC less than")
+    .option("-l, --limit <number>", "Limit number of results", "10")
+    .option("-s, --sort <sort>", "Sort field", "published_utc")
+    .option("-o, --order <order>", "Order (asc, desc)", "desc")
+    .action(async (options) => {
       const params: DefaultApiListNewsRequest = {
-        ticker: f.ticker,
-        publishedUtc: f["published-utc"],
-        tickerGte: f["ticker-gte"],
-        tickerGt: f["ticker-gt"],
-        tickerLte: f["ticker-lte"],
-        tickerLt: f["ticker-lt"],
-        publishedUtcGte: f["published-utc-gte"],
-        publishedUtcGt: f["published-utc-gt"],
-        publishedUtcLte: f["published-utc-lte"],
-        publishedUtcLt: f["published-utc-lt"],
-        order: f.order as ListNewsOrderEnum,
-        limit: num(f.limit),
-        sort: f.sort as ListNewsSortEnum,
+        ticker: options.ticker,
+        publishedUtc: options["published-utc"],
+        tickerGte: options["ticker-gte"],
+        tickerGt: options["ticker-gt"],
+        tickerLte: options["ticker-lte"],
+        tickerLt: options["ticker-lt"],
+        publishedUtcGte: options["published-utc-gte"],
+        publishedUtcGt: options["published-utc-gt"],
+        publishedUtcLte: options["published-utc-lte"],
+        publishedUtcLt: options["published-utc-lt"],
+        order: options.order as ListNewsOrderEnum,
+        limit: num(options.limit),
+        sort: options.sort as ListNewsSortEnum,
       };
       await output(api.listNews(params));
-    },
-  },
-};
+    });
+}

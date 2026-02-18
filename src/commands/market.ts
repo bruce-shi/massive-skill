@@ -1,20 +1,19 @@
+import { Command } from "commander";
 import { api } from "../lib/api";
-import type { CommandMap } from "../lib/types";
 import { output } from "../lib/utils";
 
-export const marketCommands: CommandMap = {
-  "market-status": {
-    desc: "Current market status",
-    usage: "",
-    handler: async (_api, _f) => {
+export function createMarketStatusCommand(): Command {
+  return new Command("market-status")
+    .description("Current market status")
+    .action(async () => {
       await output(api.getMarketStatus());
-    },
-  },
-  "market-holidays": {
-    desc: "Upcoming market holidays",
-    usage: "",
-    handler: async (_api, _f) => {
+    });
+}
+
+export function createMarketHolidaysCommand(): Command {
+  return new Command("market-holidays")
+    .description("Upcoming market holidays")
+    .action(async () => {
       await output(api.getMarketHolidays());
-    },
-  },
-};
+    });
+}

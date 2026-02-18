@@ -1,3 +1,4 @@
+import { Command } from "commander";
 import type {
   DefaultApiGetStocksAggregatesRequest,
   GetStocksAggregatesTimespanEnum,
@@ -31,223 +32,334 @@ import type {
   DefaultApiGetLastStocksQuoteRequest,
 } from "@massive.com/client-js";
 import { api } from "../lib/api";
-import type { CommandMap } from "../lib/types";
-import { output, requireFlag, num, bool } from "../lib/utils";
+import { output, num } from "../lib/utils";
 
-export const stocksCommands: CommandMap = {
-  "stocks-aggs": {
-    desc: "Stock aggregate bars (OHLCV)",
-    usage:
-      "--ticker AAPL --from 2025-01-01 --to 2025-01-31 [--timespan day] [--multiplier 1] [--adjusted true] [--sort asc] [--limit 120]",
-    handler: async (_api, f) => {
+export function createStocksCommand(): Command {
+  const stocks = new Command("stocks").description(
+    "Stock market data commands",
+  );
+
+  stocks
+    .command("aggs")
+    .description("Stock aggregate bars (OHLCV)")
+    .requiredOption("-t, --ticker <ticker>", "Stock ticker (e.g., AAPL)")
+    .requiredOption("--from <date>", "Start date (YYYY-MM-DD)")
+    .requiredOption("--to <date>", "End date (YYYY-MM-DD)")
+    .option(
+      "-ts, --timespan <timespan>",
+      "Timespan (minute, hour, day, week, month, quarter, year)",
+      "day",
+    )
+    .option("-m, --multiplier <number>", "Multiplier", "1")
+    .option("-a, --adjusted", "Adjust for splits", true)
+    .option("-s, --sort <sort>", "Sort order (asc, desc)", "asc")
+    .option("-l, --limit <number>", "Limit number of results", "120")
+    .action(async (options) => {
       const params: DefaultApiGetStocksAggregatesRequest = {
-        stocksTicker: requireFlag(f, "ticker"),
-        multiplier: num(f.multiplier) ?? 1,
-        timespan: (f.timespan ?? "day") as GetStocksAggregatesTimespanEnum,
-        from: requireFlag(f, "from"),
-        to: requireFlag(f, "to"),
-        adjusted: bool(f.adjusted) ?? true,
-        sort: (f.sort ?? "asc") as GetStocksAggregatesSortEnum,
-        limit: num(f.limit) ?? 120,
+        stocksTicker: options.ticker,
+        multiplier: num(options.multiplier) ?? 1,
+        timespan: (options.timespan ??
+          "day") as GetStocksAggregatesTimespanEnum,
+        from: options.from,
+        to: options.to,
+        adjusted: options.adjusted ?? true,
+        sort: (options.sort ?? "asc") as GetStocksAggregatesSortEnum,
+        limit: num(options.limit) ?? 120,
       };
       await output(api.getStocksAggregates(params));
-    },
-  },
-  "stocks-trades": {
-    desc: "Stock trades",
-    usage:
-      "--ticker AAPL [--timestamp ...] [--timestamp-gte ...] [--timestamp-gt ...] [--timestamp-lte ...] [--timestamp-lt ...] [--limit 10] [--order asc] [--sort timestamp]",
-    handler: async (_api, f) => {
+    });
+
+  stocks
+    .command("trades")
+    .description("Stock trades")
+    .requiredOption("-t, --ticker <ticker>", "Stock ticker")
+    .option("--timestamp <timestamp>", "Timestamp filter")
+    .option("--timestamp-gte <timestamp>", "Timestamp greater than or equal")
+    .option("--timestamp-gt <timestamp>", "Timestamp greater than")
+    .option("--timestamp-lte <timestamp>", "Timestamp less than or equal")
+    .option("--timestamp-lt <timestamp>", "Timestamp less than")
+    .option("-l, --limit <number>", "Limit number of results", "10")
+    .option("-o, --order <order>", "Order (asc, desc)", "asc")
+    .option("-s, --sort <sort>", "Sort field", "timestamp")
+    .action(async (options) => {
       const params: DefaultApiGetStocksTradesRequest = {
-        stockTicker: requireFlag(f, "ticker"),
-        timestamp: f.timestamp,
-        timestampGte: f["timestamp-gte"],
-        timestampGt: f["timestamp-gt"],
-        timestampLte: f["timestamp-lte"],
-        timestampLt: f["timestamp-lt"],
-        order: f.order as GetStocksTradesOrderEnum,
-        limit: num(f.limit),
-        sort: f.sort as GetStocksTradesSortEnum,
+        stockTicker: options.ticker,
+        timestamp: options.timestamp,
+        timestampGte: options["timestamp-gte"],
+        timestampGt: options["timestamp-gt"],
+        timestampLte: options["timestamp-lte"],
+        timestampLt: options["timestamp-lt"],
+        order: options.order as GetStocksTradesOrderEnum,
+        limit: num(options.limit),
+        sort: options.sort as GetStocksTradesSortEnum,
       };
       await output(api.getStocksTrades(params));
-    },
-  },
-  "stocks-quotes": {
-    desc: "Stock quotes (NBBO)",
-    usage:
-      "--ticker AAPL [--timestamp ...] [--timestamp-gte ...] [--timestamp-gt ...] [--timestamp-lte ...] [--timestamp-lt ...] [--limit 10] [--order asc] [--sort timestamp]",
-    handler: async (_api, f) => {
+    });
+
+  stocks
+    .command("quotes")
+    .description("Stock quotes (NBBO)")
+    .requiredOption("-t, --ticker <ticker>", "Stock ticker")
+    .option("--timestamp <timestamp>", "Timestamp filter")
+    .option("--timestamp-gte <timestamp>", "Timestamp greater than or equal")
+    .option("--timestamp-gt <timestamp>", "Timestamp greater than")
+    .option("--timestamp-lte <timestamp>", "Timestamp less than or equal")
+    .option("--timestamp-lt <timestamp>", "Timestamp less than")
+    .option("-l, --limit <number>", "Limit number of results", "10")
+    .option("-o, --order <order>", "Order (asc, desc)", "asc")
+    .option("-s, --sort <sort>", "Sort field", "timestamp")
+    .action(async (options) => {
       const params: DefaultApiGetStocksQuotesRequest = {
-        stockTicker: requireFlag(f, "ticker"),
-        timestamp: f.timestamp,
-        timestampGte: f["timestamp-gte"],
-        timestampGt: f["timestamp-gt"],
-        timestampLte: f["timestamp-lte"],
-        timestampLt: f["timestamp-lt"],
-        order: f.order as GetStocksQuotesOrderEnum,
-        limit: num(f.limit),
-        sort: f.sort as GetStocksQuotesSortEnum,
+        stockTicker: options.ticker,
+        timestamp: options.timestamp,
+        timestampGte: options["timestamp-gte"],
+        timestampGt: options["timestamp-gt"],
+        timestampLte: options["timestamp-lte"],
+        timestampLt: options["timestamp-lt"],
+        order: options.order as GetStocksQuotesOrderEnum,
+        limit: num(options.limit),
+        sort: options.sort as GetStocksQuotesSortEnum,
       };
       await output(api.getStocksQuotes(params));
-    },
-  },
-  "stocks-snapshot": {
-    desc: "Stock ticker snapshot",
-    usage: "--ticker AAPL",
-    handler: async (_api, f) => {
+    });
+
+  stocks
+    .command("snapshot")
+    .description("Stock ticker snapshot")
+    .requiredOption("-t, --ticker <ticker>", "Stock ticker")
+    .action(async (options) => {
       const params: DefaultApiGetStocksSnapshotTickerRequest = {
-        stocksTicker: requireFlag(f, "ticker"),
+        stocksTicker: options.ticker,
       };
       await output(api.getStocksSnapshotTicker(params));
-    },
-  },
-  "stocks-open-close": {
-    desc: "Stock daily open/close",
-    usage: "--ticker AAPL --date 2025-01-15 [--adjusted true]",
-    handler: async (_api, f) => {
+    });
+
+  stocks
+    .command("open-close")
+    .description("Stock daily open/close")
+    .requiredOption("-t, --ticker <ticker>", "Stock ticker")
+    .requiredOption("-d, --date <date>", "Date (YYYY-MM-DD)")
+    .option("-a, --adjusted", "Adjust for splits")
+    .action(async (options) => {
       const params: DefaultApiGetStocksOpenCloseRequest = {
-        stocksTicker: requireFlag(f, "ticker"),
-        date: requireFlag(f, "date"),
-        adjusted: bool(f.adjusted),
+        stocksTicker: options.ticker,
+        date: options.date,
+        adjusted: options.adjusted,
       };
       await output(api.getStocksOpenClose(params));
-    },
-  },
-  "stocks-previous": {
-    desc: "Stock previous day aggregates",
-    usage: "--ticker AAPL [--adjusted true]",
-    handler: async (_api, f) => {
+    });
+
+  stocks
+    .command("previous")
+    .description("Stock previous day aggregates")
+    .requiredOption("-t, --ticker <ticker>", "Stock ticker")
+    .option("-a, --adjusted", "Adjust for splits")
+    .action(async (options) => {
       const params: DefaultApiGetPreviousStocksAggregatesRequest = {
-        stocksTicker: requireFlag(f, "ticker"),
-        adjusted: bool(f.adjusted),
+        stocksTicker: options.ticker,
+        adjusted: options.adjusted,
       };
       await output(api.getPreviousStocksAggregates(params));
-    },
-  },
-  "stocks-grouped": {
-    desc: "Stock grouped daily aggregates",
-    usage: "--date 2025-01-15 [--adjusted true] [--include-otc false]",
-    handler: async (_api, f) => {
+    });
+
+  stocks
+    .command("grouped")
+    .description("Stock grouped daily aggregates")
+    .requiredOption("-d, --date <date>", "Date (YYYY-MM-DD)")
+    .option("-a, --adjusted", "Adjust for splits")
+    .option("--include-otc", "Include OTC stocks", false)
+    .action(async (options) => {
       const params: DefaultApiGetGroupedStocksAggregatesRequest = {
-        date: requireFlag(f, "date"),
-        adjusted: bool(f.adjusted),
-        includeOtc: bool(f["include-otc"]),
+        date: options.date,
+        adjusted: options.adjusted,
+        includeOtc: options.includeOtc,
       };
       await output(api.getGroupedStocksAggregates(params));
-    },
-  },
-  "stocks-sma": {
-    desc: "Stock SMA",
-    usage:
-      "--ticker AAPL [--timespan day] [--window 50] [--series-type close] [--expand-underlying true] [--order asc] [--limit 10] [--timestamp ...] [--timestamp-gte ...]",
-    handler: async (_api, f) => {
+    });
+
+  stocks
+    .command("sma")
+    .description("Stock SMA")
+    .requiredOption("-t, --ticker <ticker>", "Stock ticker")
+    .option("--timespan <timespan>", "Timespan", "day")
+    .option("-a, --adjusted", "Adjust for splits")
+    .option("-w, --window <number>", "Window size", "50")
+    .option(
+      "--series-type <type>",
+      "Series type (open, high, low, close)",
+      "close",
+    )
+    .option("--expand-underlying", "Expand underlying", false)
+    .option("-o, --order <order>", "Order (asc, desc)", "asc")
+    .option("-l, --limit <number>", "Limit number of results", "10")
+    .option("--timestamp <timestamp>", "Timestamp filter")
+    .option("--timestamp-gte <timestamp>", "Timestamp greater than or equal")
+    .option("--timestamp-gt <timestamp>", "Timestamp greater than")
+    .option("--timestamp-lte <timestamp>", "Timestamp less than or equal")
+    .option("--timestamp-lt <timestamp>", "Timestamp less than")
+    .action(async (options) => {
       const params: DefaultApiGetStocksSMARequest = {
-        stockTicker: requireFlag(f, "ticker"),
-        timespan: f.timespan as GetStocksSMATimespanEnum,
-        adjusted: bool(f.adjusted),
-        window: num(f.window),
-        seriesType: f["series-type"] as GetStocksSMASeriesTypeEnum,
-        expandUnderlying: bool(f["expand-underlying"]),
-        order: f.order as GetStocksSMAOrderEnum,
-        limit: num(f.limit),
-        timestamp: f.timestamp,
-        timestampGte: f["timestamp-gte"],
-        timestampGt: f["timestamp-gt"],
-        timestampLte: f["timestamp-lte"],
-        timestampLt: f["timestamp-lt"],
+        stockTicker: options.ticker,
+        timespan: options.timespan as GetStocksSMATimespanEnum,
+        adjusted: options.adjusted,
+        window: num(options.window),
+        seriesType: options["series-type"] as GetStocksSMASeriesTypeEnum,
+        expandUnderlying: options["expand-underlying"],
+        order: options.order as GetStocksSMAOrderEnum,
+        limit: num(options.limit),
+        timestamp: options.timestamp,
+        timestampGte: options["timestamp-gte"],
+        timestampGt: options["timestamp-gt"],
+        timestampLte: options["timestamp-lte"],
+        timestampLt: options["timestamp-lt"],
       };
       await output(api.getStocksSMA(params));
-    },
-  },
-  "stocks-ema": {
-    desc: "Stock EMA",
-    usage:
-      "--ticker AAPL [--timespan day] [--window 50] [--series-type close] [--expand-underlying true] [--order asc] [--limit 10] [--timestamp ...] [--timestamp-gte ...]",
-    handler: async (_api, f) => {
+    });
+
+  stocks
+    .command("ema")
+    .description("Stock EMA")
+    .requiredOption("-t, --ticker <ticker>", "Stock ticker")
+    .option("--timespan <timespan>", "Timespan", "day")
+    .option("-a, --adjusted", "Adjust for splits")
+    .option("-w, --window <number>", "Window size", "50")
+    .option(
+      "--series-type <type>",
+      "Series type (open, high, low, close)",
+      "close",
+    )
+    .option("--expand-underlying", "Expand underlying", false)
+    .option("-o, --order <order>", "Order (asc, desc)", "asc")
+    .option("-l, --limit <number>", "Limit number of results", "10")
+    .option("--timestamp <timestamp>", "Timestamp filter")
+    .option("--timestamp-gte <timestamp>", "Timestamp greater than or equal")
+    .option("--timestamp-gt <timestamp>", "Timestamp greater than")
+    .option("--timestamp-lte <timestamp>", "Timestamp less than or equal")
+    .option("--timestamp-lt <timestamp>", "Timestamp less than")
+    .action(async (options) => {
       const params: DefaultApiGetStocksEMARequest = {
-        stockTicker: requireFlag(f, "ticker"),
-        timespan: f.timespan as GetStocksEMATimespanEnum,
-        adjusted: bool(f.adjusted),
-        window: num(f.window),
-        seriesType: f["series-type"] as GetStocksEMASeriesTypeEnum,
-        expandUnderlying: bool(f["expand-underlying"]),
-        order: f.order as GetStocksEMAOrderEnum,
-        limit: num(f.limit),
-        timestamp: f.timestamp,
-        timestampGte: f["timestamp-gte"],
-        timestampGt: f["timestamp-gt"],
-        timestampLte: f["timestamp-lte"],
-        timestampLt: f["timestamp-lt"],
+        stockTicker: options.ticker,
+        timespan: options.timespan as GetStocksEMATimespanEnum,
+        adjusted: options.adjusted,
+        window: num(options.window),
+        seriesType: options["series-type"] as GetStocksEMASeriesTypeEnum,
+        expandUnderlying: options["expand-underlying"],
+        order: options.order as GetStocksEMAOrderEnum,
+        limit: num(options.limit),
+        timestamp: options.timestamp,
+        timestampGte: options["timestamp-gte"],
+        timestampGt: options["timestamp-gt"],
+        timestampLte: options["timestamp-lte"],
+        timestampLt: options["timestamp-lt"],
       };
       await output(api.getStocksEMA(params));
-    },
-  },
-  "stocks-rsi": {
-    desc: "Stock RSI",
-    usage:
-      "--ticker AAPL [--timespan day] [--window 14] [--series-type close] [--expand-underlying true] [--order asc] [--limit 10] [--timestamp ...] [--timestamp-gte ...]",
-    handler: async (_api, f) => {
+    });
+
+  stocks
+    .command("rsi")
+    .description("Stock RSI")
+    .requiredOption("-t, --ticker <ticker>", "Stock ticker")
+    .option("--timespan <timespan>", "Timespan", "day")
+    .option("-a, --adjusted", "Adjust for splits")
+    .option("-w, --window <number>", "Window size", "14")
+    .option(
+      "--series-type <type>",
+      "Series type (open, high, low, close)",
+      "close",
+    )
+    .option("--expand-underlying", "Expand underlying", false)
+    .option("-o, --order <order>", "Order (asc, desc)", "asc")
+    .option("-l, --limit <number>", "Limit number of results", "10")
+    .option("--timestamp <timestamp>", "Timestamp filter")
+    .option("--timestamp-gte <timestamp>", "Timestamp greater than or equal")
+    .option("--timestamp-gt <timestamp>", "Timestamp greater than")
+    .option("--timestamp-lte <timestamp>", "Timestamp less than or equal")
+    .option("--timestamp-lt <timestamp>", "Timestamp less than")
+    .action(async (options) => {
       const params: DefaultApiGetStocksRSIRequest = {
-        stockTicker: requireFlag(f, "ticker"),
-        timespan: f.timespan as GetStocksRSITimespanEnum,
-        adjusted: bool(f.adjusted),
-        window: num(f.window),
-        seriesType: f["series-type"] as GetStocksRSISeriesTypeEnum,
-        expandUnderlying: bool(f["expand-underlying"]),
-        limit: num(f.limit),
-        order: f.order as any, // RSI might not have order enum exported or it is missing in imports
-        timestamp: f.timestamp,
-        timestampGte: f["timestamp-gte"],
-        timestampGt: f["timestamp-gt"],
-        timestampLte: f["timestamp-lte"],
-        timestampLt: f["timestamp-lt"],
+        stockTicker: options.ticker,
+        timespan: options.timespan as GetStocksRSITimespanEnum,
+        adjusted: options.adjusted,
+        window: num(options.window),
+        seriesType: options["series-type"] as GetStocksRSISeriesTypeEnum,
+        expandUnderlying: options["expand-underlying"],
+        limit: num(options.limit),
+        order: options.order as any,
+        timestamp: options.timestamp,
+        timestampGte: options["timestamp-gte"],
+        timestampGt: options["timestamp-gt"],
+        timestampLte: options["timestamp-lte"],
+        timestampLt: options["timestamp-lt"],
       };
       await output(api.getStocksRSI(params));
-    },
-  },
-  "stocks-macd": {
-    desc: "Stock MACD",
-    usage:
-      "--ticker AAPL [--timespan day] [--short-window 12] [--long-window 26] [--signal-window 9] [--series-type close] [--expand-underlying true] [--order asc] [--limit 10] [--timestamp ...] [--timestamp-gte ...]",
-    handler: async (_api, f) => {
+    });
+
+  stocks
+    .command("macd")
+    .description("Stock MACD")
+    .requiredOption("-t, --ticker <ticker>", "Stock ticker")
+    .option("--timespan <timespan>", "Timespan", "day")
+    .option("-a, --adjusted", "Adjust for splits")
+    .option("--short-window <number>", "Short window", "12")
+    .option("--long-window <number>", "Long window", "26")
+    .option("--signal-window <number>", "Signal window", "9")
+    .option(
+      "--series-type <type>",
+      "Series type (open, high, low, close)",
+      "close",
+    )
+    .option("--expand-underlying", "Expand underlying", false)
+    .option("-o, --order <order>", "Order (asc, desc)", "asc")
+    .option("-l, --limit <number>", "Limit number of results", "10")
+    .option("--timestamp <timestamp>", "Timestamp filter")
+    .option("--timestamp-gte <timestamp>", "Timestamp greater than or equal")
+    .option("--timestamp-gt <timestamp>", "Timestamp greater than")
+    .option("--timestamp-lte <timestamp>", "Timestamp less than or equal")
+    .option("--timestamp-lt <timestamp>", "Timestamp less than")
+    .action(async (options) => {
       const params: DefaultApiGetStocksMACDRequest = {
-        stockTicker: requireFlag(f, "ticker"),
-        timespan: f.timespan as GetStocksMACDTimespanEnum,
-        adjusted: bool(f.adjusted),
-        shortWindow: num(f["short-window"]),
-        longWindow: num(f["long-window"]),
-        signalWindow: num(f["signal-window"]),
-        seriesType: f["series-type"] as GetStocksMACDSeriesTypeEnum,
-        expandUnderlying: bool(f["expand-underlying"]),
-        order: f.order as GetStocksMACDOrderEnum,
-        limit: num(f.limit),
-        timestamp: f.timestamp,
-        timestampGte: f["timestamp-gte"],
-        timestampGt: f["timestamp-gt"],
-        timestampLte: f["timestamp-lte"],
-        timestampLt: f["timestamp-lt"],
+        stockTicker: options.ticker,
+        timespan: options.timespan as GetStocksMACDTimespanEnum,
+        adjusted: options.adjusted,
+        shortWindow: num(options["short-window"]),
+        longWindow: num(options["long-window"]),
+        signalWindow: num(options["signal-window"]),
+        seriesType: options["series-type"] as GetStocksMACDSeriesTypeEnum,
+        expandUnderlying: options["expand-underlying"],
+        order: options.order as GetStocksMACDOrderEnum,
+        limit: num(options.limit),
+        timestamp: options.timestamp,
+        timestampGte: options["timestamp-gte"],
+        timestampGt: options["timestamp-gt"],
+        timestampLte: options["timestamp-lte"],
+        timestampLt: options["timestamp-lt"],
       };
       await output(api.getStocksMACD(params));
-    },
-  },
-  "last-trade": {
-    desc: "Last stock trade",
-    usage: "--ticker AAPL",
-    handler: async (_api, f) => {
+    });
+
+  return stocks;
+}
+
+export function createLastTradeCommand(): Command {
+  return new Command("last-trade")
+    .description("Last stock trade")
+    .requiredOption("-t, --ticker <ticker>", "Stock ticker")
+    .action(async (options) => {
       const params: DefaultApiGetLastStocksTradeRequest = {
-        stocksTicker: requireFlag(f, "ticker"),
+        stocksTicker: options.ticker,
       };
       await output(api.getLastStocksTrade(params));
-    },
-  },
-  "last-quote": {
-    desc: "Last stock quote",
-    usage: "--ticker AAPL",
-    handler: async (_api, f) => {
+    });
+}
+
+export function createLastQuoteCommand(): Command {
+  return new Command("last-quote")
+    .description("Last stock quote")
+    .requiredOption("-t, --ticker <ticker>", "Stock ticker")
+    .action(async (options) => {
       const params: DefaultApiGetLastStocksQuoteRequest = {
-        stocksTicker: requireFlag(f, "ticker"),
+        stocksTicker: options.ticker,
       };
       await output(api.getLastStocksQuote(params));
-    },
-  },
-};
+    });
+}

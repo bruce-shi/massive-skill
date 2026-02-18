@@ -1,126 +1,77 @@
 #!/usr/bin/env node
-import { api } from "./lib/api";
-import { parseArgs } from "./lib/utils";
-import { stocksCommands } from "./commands/stocks";
-import { cryptoCommands } from "./commands/crypto";
-import { forexCommands } from "./commands/forex";
-import { indicesCommands } from "./commands/indices";
-import { optionsCommands } from "./commands/options";
-import { referenceCommands } from "./commands/reference";
-import { marketCommands } from "./commands/market";
-import { newsCommands } from "./commands/news";
-import type { CommandMap } from "./lib/types";
+import { Command } from "commander";
+import {
+  createStocksCommand,
+  createLastTradeCommand,
+  createLastQuoteCommand,
+} from "./commands/stocks";
+import {
+  createCryptoCommand,
+  createLastCryptoTradeCommand,
+} from "./commands/crypto";
+import {
+  createForexCommand,
+  createCurrencyConversionCommand,
+  createLastForexQuoteCommand,
+} from "./commands/forex";
+import { createIndicesCommand } from "./commands/indices";
+import {
+  createOptionsCommand,
+  createLastOptionsTradeCommand,
+} from "./commands/options";
+import {
+  createTickersCommand,
+  createTickerDetailsCommand,
+  createTickerTypesCommand,
+  createExchangesCommand,
+  createConditionsCommand,
+  createDividendsCommand,
+  createStockSplitsCommand,
+  createFinancialsCommand,
+  createIposCommand,
+  createRelatedCompaniesCommand,
+} from "./commands/reference";
+import {
+  createMarketStatusCommand,
+  createMarketHolidaysCommand,
+} from "./commands/market";
+import { createNewsCommand } from "./commands/news";
 
-const COMMANDS: CommandMap = {
-  ...stocksCommands,
-  ...cryptoCommands,
-  ...forexCommands,
-  ...indicesCommands,
-  ...optionsCommands,
-  ...referenceCommands,
-  ...marketCommands,
-  ...newsCommands,
-};
+const program = new Command();
 
-function showHelp() {
-  console.log("massive - Massive Market Data CLI\n");
-  console.log("Usage: npx --yes massive <command> [options]\n");
-  console.log("Commands:");
-  const maxLen = Math.max(...Object.keys(COMMANDS).map((k) => k.length));
+program.name("massive").description("Massive Market Data CLI").version("0.0.3");
 
-  // Group commands by prefix for display
-  const groups: Record<string, string[]> = {};
-  for (const name of Object.keys(COMMANDS)) {
-    const prefix = name.split("-")[0]!;
-    if (!groups[prefix]) groups[prefix] = [];
-    groups[prefix].push(name);
-  }
+// Register all commands using addCommand
+program.addCommand(createStocksCommand());
+program.addCommand(createLastTradeCommand());
+program.addCommand(createLastQuoteCommand());
 
-  // Define order of groups
-  const order = [
-    "stocks",
-    "crypto",
-    "forex",
-    "options",
-    "indices",
-    "last",
-    "currency",
-    "tickers",
-    "ticker",
-    "exchanges",
-    "conditions",
-    "dividends",
-    "stock",
-    "financials",
-    "ipos",
-    "related",
-    "market",
-    "news",
-  ];
+program.addCommand(createCryptoCommand());
+program.addCommand(createLastCryptoTradeCommand());
 
-  // Display ordered groups first
-  for (const prefix of order) {
-    if (groups[prefix]) {
-      for (const name of groups[prefix]!) {
-        const { desc } = COMMANDS[name]!;
-        console.log(`  ${name.padEnd(maxLen + 2)} ${desc}`);
-      }
-      console.log(); // Separator
-      delete groups[prefix];
-    }
-  }
+program.addCommand(createForexCommand());
+program.addCommand(createCurrencyConversionCommand());
+program.addCommand(createLastForexQuoteCommand());
 
-  // Display remaining
-  for (const prefix in groups) {
-    for (const name of groups[prefix]!) {
-      const { desc } = COMMANDS[name]!;
-      console.log(`  ${name.padEnd(maxLen + 2)} ${desc}`);
-    }
-  }
+program.addCommand(createIndicesCommand());
 
-  console.log(
-    "Use 'npx --yes massive <command> --help' for command-specific options.",
-  );
-  console.log("Set MASSIVE_API_KEY in .env or environment.");
-}
+program.addCommand(createOptionsCommand());
+program.addCommand(createLastOptionsTradeCommand());
 
-function showCommandHelp(command: string) {
-  const cmd = COMMANDS[command];
-  if (!cmd) {
-    console.error(`Unknown command: ${command}`);
-    console.error("Run 'npx --yes massive help' to see available commands.");
-    process.exit(1);
-  }
-  console.log(`${command} - ${cmd.desc}`);
-  console.log(`\nUsage: npx --yes massive ${command} ${cmd.usage}`);
-}
+program.addCommand(createTickersCommand());
+program.addCommand(createTickerDetailsCommand());
+program.addCommand(createTickerTypesCommand());
+program.addCommand(createExchangesCommand());
+program.addCommand(createConditionsCommand());
+program.addCommand(createDividendsCommand());
+program.addCommand(createStockSplitsCommand());
+program.addCommand(createFinancialsCommand());
+program.addCommand(createIposCommand());
+program.addCommand(createRelatedCompaniesCommand());
 
-async function main() {
-  const { command, flags } = parseArgs(process.argv.slice(2));
+program.addCommand(createMarketStatusCommand());
+program.addCommand(createMarketHolidaysCommand());
 
-  if (command === "help" || command === "--help" || command === "-h") {
-    showHelp();
-    return;
-  }
+program.addCommand(createNewsCommand());
 
-  if (flags.help === "true") {
-    showCommandHelp(command);
-    return;
-  }
-
-  const cmd = COMMANDS[command];
-  if (!cmd) {
-    console.error(`Unknown command: ${command}`);
-    console.error("Run 'npx --yes massive help' to see available commands.");
-    process.exit(1);
-  }
-
-  try {
-    await cmd.handler(api, flags);
-  } catch (e: any) {
-    console.error("Error executing command:", e.message ?? e);
-    process.exit(1);
-  }
-}
-
-main();
+program.parse(process.argv);

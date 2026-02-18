@@ -1,3 +1,4 @@
+import { Command } from "commander";
 import type {
   DefaultApiGetCryptoAggregatesRequest,
   GetCryptoAggregatesTimespanEnum,
@@ -20,215 +21,297 @@ import type {
   DefaultApiGetLastCryptoTradeRequest,
 } from "@massive.com/client-js";
 import { api } from "../lib/api";
-import type { CommandMap } from "../lib/types";
-import { output, requireFlag, num, bool, list } from "../lib/utils";
+import { output, num } from "../lib/utils";
 
-export const cryptoCommands: CommandMap = {
-  "crypto-aggs": {
-    desc: "Crypto aggregate bars",
-    usage:
-      "--ticker X:BTCUSD --from 2025-01-01 --to 2025-01-31 [--timespan day] [--multiplier 1] [--adjusted true] [--sort asc] [--limit 120]",
-    handler: async (_api, f) => {
+export function createCryptoCommand(): Command {
+  const crypto = new Command("crypto").description(
+    "Cryptocurrency market data commands",
+  );
+
+  crypto
+    .command("aggs")
+    .description("Crypto aggregate bars")
+    .requiredOption("-t, --ticker <ticker>", "Crypto ticker (e.g., X:BTCUSD)")
+    .requiredOption("--from <date>", "Start date (YYYY-MM-DD)")
+    .requiredOption("--to <date>", "End date (YYYY-MM-DD)")
+    .option(
+      "--timespan <timespan>",
+      "Timespan (minute, hour, day, week, month, quarter, year)",
+      "day",
+    )
+    .option("-m, --multiplier <number>", "Multiplier", "1")
+    .option("-a, --adjusted", "Adjust for splits", true)
+    .option("-s, --sort <sort>", "Sort order (asc, desc)", "asc")
+    .option("-l, --limit <number>", "Limit number of results", "120")
+    .action(async (options) => {
       const params: DefaultApiGetCryptoAggregatesRequest = {
-        cryptoTicker: requireFlag(f, "ticker"),
-        multiplier: num(f.multiplier) ?? 1,
-        timespan: (f.timespan ?? "day") as GetCryptoAggregatesTimespanEnum,
-        from: requireFlag(f, "from"),
-        to: requireFlag(f, "to"),
-        adjusted: bool(f.adjusted) ?? true,
-        sort: (f.sort ?? "asc") as GetCryptoAggregatesSortEnum,
-        limit: num(f.limit) ?? 120,
+        cryptoTicker: options.ticker,
+        multiplier: num(options.multiplier) ?? 1,
+        timespan: (options.timespan ??
+          "day") as GetCryptoAggregatesTimespanEnum,
+        from: options.from,
+        to: options.to,
+        adjusted: options.adjusted ?? true,
+        sort: (options.sort ?? "asc") as GetCryptoAggregatesSortEnum,
+        limit: num(options.limit) ?? 120,
       };
       await output(api.getCryptoAggregates(params));
-    },
-  },
-  "crypto-trades": {
-    desc: "Crypto trades",
-    usage:
-      "--ticker X:BTCUSD [--timestamp ...] [--timestamp-gte ...] [--timestamp-lt ...] [--order asc] [--limit 10] [--sort timestamp]",
-    handler: async (_api, f) => {
+    });
+
+  crypto
+    .command("trades")
+    .description("Crypto trades")
+    .requiredOption("-t, --ticker <ticker>", "Crypto ticker")
+    .option("--timestamp <timestamp>", "Timestamp filter")
+    .option("--timestamp-gte <timestamp>", "Timestamp greater than or equal")
+    .option("--timestamp-gt <timestamp>", "Timestamp greater than")
+    .option("--timestamp-lte <timestamp>", "Timestamp less than or equal")
+    .option("--timestamp-lt <timestamp>", "Timestamp less than")
+    .option("-o, --order <order>", "Order (asc, desc)")
+    .option("-l, --limit <number>", "Limit number of results", "10")
+    .option("-s, --sort <sort>", "Sort field", "timestamp")
+    .action(async (options) => {
       const params: DefaultApiGetCryptoTradesRequest = {
-        cryptoTicker: requireFlag(f, "ticker"),
-        timestamp: f.timestamp,
-        timestampGte: f["timestamp-gte"],
-        timestampGt: f["timestamp-gt"],
-        timestampLte: f["timestamp-lte"],
-        timestampLt: f["timestamp-lt"],
-        order: f.order as GetCryptoTradesOrderEnum,
-        limit: num(f.limit),
-        sort: f.sort as GetCryptoTradesSortEnum,
+        cryptoTicker: options.ticker,
+        timestamp: options.timestamp,
+        timestampGte: options["timestamp-gte"],
+        timestampGt: options["timestamp-gt"],
+        timestampLte: options["timestamp-lte"],
+        timestampLt: options["timestamp-lt"],
+        order: options.order as GetCryptoTradesOrderEnum,
+        limit: num(options.limit),
+        sort: options.sort as GetCryptoTradesSortEnum,
       };
       await output(api.getCryptoTrades(params));
-    },
-  },
-  "crypto-snapshot": {
-    desc: "Crypto ticker snapshot",
-    usage: "--ticker X:BTCUSD",
-    handler: async (_api, f) => {
+    });
+
+  crypto
+    .command("snapshot")
+    .description("Crypto ticker snapshot")
+    .requiredOption("-t, --ticker <ticker>", "Crypto ticker")
+    .action(async (options) => {
       const params: DefaultApiGetCryptoSnapshotTickerRequest = {
-        ticker: requireFlag(f, "ticker"),
+        ticker: options.ticker,
       };
       await output(api.getCryptoSnapshotTicker(params));
-    },
-  },
-  "crypto-snapshot-direction": {
-    desc: "Crypto snapshot direction",
-    usage: "--direction gainers|losers",
-    handler: async (_api, f) => {
-      // DefaultApiGetCryptoSnapshotDirectionRequest
-      // direction: GetCryptoSnapshotDirectionDirectionEnum
-      // 'gainers' | 'losers'
-      const direction = requireFlag(f, "direction") as any;
-      await output(api.getCryptoSnapshotDirection({ direction }));
-    },
-  },
-  "crypto-snapshot-tickers": {
-    desc: "Crypto snapshot tickers",
-    usage: "[--tickers X:BTCUSD,X:ETHUSD]",
-    handler: async (_api, f) => {
-      // DefaultApiGetCryptoSnapshotTickersRequest
-      // tickers?: Array<string>
+    });
+
+  crypto
+    .command("snapshot-direction")
+    .description("Crypto snapshot direction")
+    .requiredOption(
+      "-d, --direction <direction>",
+      "Direction (gainers, losers)",
+    )
+    .action(async (options) => {
       await output(
-        api.getCryptoSnapshotTickers({
-          tickers: list(f.tickers),
-        }),
+        api.getCryptoSnapshotDirection({ direction: options.direction as any }),
       );
-    },
-  },
-  "crypto-open-close": {
-    desc: "Crypto daily open/close",
-    usage: "--from BTC --to USD --date 2025-01-15 [--adjusted true]",
-    handler: async (_api, f) => {
+    });
+
+  crypto
+    .command("snapshot-tickers")
+    .description("Crypto snapshot tickers")
+    .option("-t, --tickers <tickers>", "Comma-separated tickers")
+    .action(async (options) => {
+      const tickers = options.tickers
+        ? options.tickers.split(",").map((s: string) => s.trim())
+        : undefined;
+      await output(api.getCryptoSnapshotTickers({ tickers }));
+    });
+
+  crypto
+    .command("open-close")
+    .description("Crypto daily open/close")
+    .requiredOption("-f, --from <from>", "From currency (e.g., BTC)")
+    .requiredOption("-t, --to <to>", "To currency (e.g., USD)")
+    .requiredOption("-d, --date <date>", "Date (YYYY-MM-DD)")
+    .option("-a, --adjusted", "Adjust for splits")
+    .action(async (options) => {
       const params: DefaultApiGetCryptoOpenCloseRequest = {
-        from: requireFlag(f, "from"),
-        to: requireFlag(f, "to"),
-        date: requireFlag(f, "date"),
-        adjusted: bool(f.adjusted),
+        from: options.from,
+        to: options.to,
+        date: options.date,
+        adjusted: options.adjusted,
       };
       await output(api.getCryptoOpenClose(params));
-    },
-  },
-  "crypto-previous": {
-    desc: "Crypto previous day aggregates",
-    usage: "--ticker X:BTCUSD [--adjusted true]",
-    handler: async (_api, f) => {
+    });
+
+  crypto
+    .command("previous")
+    .description("Crypto previous day aggregates")
+    .requiredOption("-t, --ticker <ticker>", "Crypto ticker")
+    .option("-a, --adjusted", "Adjust for splits")
+    .action(async (options) => {
       const params: DefaultApiGetPreviousCryptoAggregatesRequest = {
-        cryptoTicker: requireFlag(f, "ticker"),
-        adjusted: bool(f.adjusted),
+        cryptoTicker: options.ticker,
+        adjusted: options.adjusted,
       };
       await output(api.getPreviousCryptoAggregates(params));
-    },
-  },
-  "crypto-grouped": {
-    desc: "Crypto grouped daily aggregates",
-    usage: "--date 2025-01-15 [--adjusted true]",
-    handler: async (_api, f) => {
+    });
+
+  crypto
+    .command("grouped")
+    .description("Crypto grouped daily aggregates")
+    .requiredOption("-d, --date <date>", "Date (YYYY-MM-DD)")
+    .option("-a, --adjusted", "Adjust for splits")
+    .action(async (options) => {
       const params: DefaultApiGetGroupedCryptoAggregatesRequest = {
-        date: requireFlag(f, "date"),
-        adjusted: bool(f.adjusted),
+        date: options.date,
+        adjusted: options.adjusted,
       };
       await output(api.getGroupedCryptoAggregates(params));
-    },
-  },
-  "crypto-sma": {
-    desc: "Crypto SMA",
-    usage:
-      "--ticker X:BTCUSD [--timespan day] [--window 50] [--timestamp ...] [--series-type close] [--expand-underlying true] [--order asc] [--limit 10]",
-    handler: async (_api, f) => {
+    });
+
+  crypto
+    .command("sma")
+    .description("Crypto SMA")
+    .requiredOption("-t, --ticker <ticker>", "Crypto ticker")
+    .option("--timespan <timespan>", "Timespan", "day")
+    .option("-w, --window <number>", "Window size", "50")
+    .option("--timestamp <timestamp>", "Timestamp filter")
+    .option(
+      "--series-type <type>",
+      "Series type (open, high, low, close)",
+      "close",
+    )
+    .option("--expand-underlying", "Expand underlying", false)
+    .option("-o, --order <order>", "Order (asc, desc)", "asc")
+    .option("-l, --limit <number>", "Limit number of results", "10")
+    .action(async (options) => {
       const params: DefaultApiGetCryptoSMARequest = {
-        cryptoTicker: requireFlag(f, "ticker"),
-        timestamp: f.timestamp,
-        timespan: f.timespan as GetCryptoSMATimespanEnum,
-        window: num(f.window),
-        seriesType: f["series-type"] as any,
-        expandUnderlying: bool(f["expand-underlying"]),
-        order: f.order as any,
-        limit: num(f.limit),
-        timestampGte: f["timestamp-gte"],
-        timestampGt: f["timestamp-gt"],
-        timestampLte: f["timestamp-lte"],
-        timestampLt: f["timestamp-lt"],
+        cryptoTicker: options.ticker,
+        timestamp: options.timestamp,
+        timespan: options.timespan as GetCryptoSMATimespanEnum,
+        window: num(options.window),
+        seriesType: options["series-type"] as any,
+        expandUnderlying: options["expand-underlying"],
+        order: options.order as any,
+        limit: num(options.limit),
+        timestampGte: options["timestamp-gte"],
+        timestampGt: options["timestamp-gt"],
+        timestampLte: options["timestamp-lte"],
+        timestampLt: options["timestamp-lt"],
       };
       await output(api.getCryptoSMA(params));
-    },
-  },
-  "crypto-ema": {
-    desc: "Crypto EMA",
-    usage:
-      "--ticker X:BTCUSD [--timespan day] [--window 50] [--timestamp ...] [--series-type close] [--expand-underlying true] [--order asc] [--limit 10]",
-    handler: async (_api, f) => {
+    });
+
+  crypto
+    .command("ema")
+    .description("Crypto EMA")
+    .requiredOption("-t, --ticker <ticker>", "Crypto ticker")
+    .option("--timespan <timespan>", "Timespan", "day")
+    .option("-w, --window <number>", "Window size", "50")
+    .option("--timestamp <timestamp>", "Timestamp filter")
+    .option(
+      "--series-type <type>",
+      "Series type (open, high, low, close)",
+      "close",
+    )
+    .option("--expand-underlying", "Expand underlying", false)
+    .option("-o, --order <order>", "Order (asc, desc)", "asc")
+    .option("-l, --limit <number>", "Limit number of results", "10")
+    .action(async (options) => {
       const params: DefaultApiGetCryptoEMARequest = {
-        cryptoTicker: requireFlag(f, "ticker"),
-        timestamp: f.timestamp,
-        timespan: f.timespan as GetCryptoEMATimespanEnum,
-        window: num(f.window),
-        seriesType: f["series-type"] as any,
-        expandUnderlying: bool(f["expand-underlying"]),
-        order: f.order as any,
-        limit: num(f.limit),
-        timestampGte: f["timestamp-gte"],
-        timestampGt: f["timestamp-gt"],
-        timestampLte: f["timestamp-lte"],
-        timestampLt: f["timestamp-lt"],
+        cryptoTicker: options.ticker,
+        timestamp: options.timestamp,
+        timespan: options.timespan as GetCryptoEMATimespanEnum,
+        window: num(options.window),
+        seriesType: options["series-type"] as any,
+        expandUnderlying: options["expand-underlying"],
+        order: options.order as any,
+        limit: num(options.limit),
+        timestampGte: options["timestamp-gte"],
+        timestampGt: options["timestamp-gt"],
+        timestampLte: options["timestamp-lte"],
+        timestampLt: options["timestamp-lt"],
       };
       await output(api.getCryptoEMA(params));
-    },
-  },
-  "crypto-rsi": {
-    desc: "Crypto RSI",
-    usage:
-      "--ticker X:BTCUSD [--timespan day] [--window 14] [--timestamp ...] [--series-type close] [--expand-underlying true] [--order asc] [--limit 10]",
-    handler: async (_api, f) => {
+    });
+
+  crypto
+    .command("rsi")
+    .description("Crypto RSI")
+    .requiredOption("-t, --ticker <ticker>", "Crypto ticker")
+    .option("--timespan <timespan>", "Timespan", "day")
+    .option("-w, --window <number>", "Window size", "14")
+    .option("--timestamp <timestamp>", "Timestamp filter")
+    .option(
+      "--series-type <type>",
+      "Series type (open, high, low, close)",
+      "close",
+    )
+    .option("--expand-underlying", "Expand underlying", false)
+    .option("-o, --order <order>", "Order (asc, desc)", "asc")
+    .option("-l, --limit <number>", "Limit number of results", "10")
+    .action(async (options) => {
       const params: DefaultApiGetCryptoRSIRequest = {
-        cryptoTicker: requireFlag(f, "ticker"),
-        timestamp: f.timestamp,
-        timespan: f.timespan as GetCryptoRSITimespanEnum,
-        window: num(f.window),
-        seriesType: f["series-type"] as any,
-        expandUnderlying: bool(f["expand-underlying"]),
-        order: f.order as any,
-        limit: num(f.limit),
-        timestampGte: f["timestamp-gte"],
-        timestampGt: f["timestamp-gt"],
-        timestampLte: f["timestamp-lte"],
-        timestampLt: f["timestamp-lt"],
+        cryptoTicker: options.ticker,
+        timestamp: options.timestamp,
+        timespan: options.timespan as GetCryptoRSITimespanEnum,
+        window: num(options.window),
+        seriesType: options["series-type"] as any,
+        expandUnderlying: options["expand-underlying"],
+        order: options.order as any,
+        limit: num(options.limit),
+        timestampGte: options["timestamp-gte"],
+        timestampGt: options["timestamp-gt"],
+        timestampLte: options["timestamp-lte"],
+        timestampLt: options["timestamp-lt"],
       };
       await output(api.getCryptoRSI(params));
-    },
-  },
-  "crypto-macd": {
-    desc: "Crypto MACD",
-    usage:
-      "--ticker X:BTCUSD [--timespan day] [--short-window 12] [--long-window 26] [--signal-window 9] [--timestamp ...] [--series-type close] [--expand-underlying true] [--order asc] [--limit 10]",
-    handler: async (_api, f) => {
+    });
+
+  crypto
+    .command("macd")
+    .description("Crypto MACD")
+    .requiredOption("-t, --ticker <ticker>", "Crypto ticker")
+    .option("--timespan <timespan>", "Timespan", "day")
+    .option("--short-window <number>", "Short window", "12")
+    .option("--long-window <number>", "Long window", "26")
+    .option("--signal-window <number>", "Signal window", "9")
+    .option("--timestamp <timestamp>", "Timestamp filter")
+    .option(
+      "--series-type <type>",
+      "Series type (open, high, low, close)",
+      "close",
+    )
+    .option("--expand-underlying", "Expand underlying", false)
+    .option("-o, --order <order>", "Order (asc, desc)", "asc")
+    .option("-l, --limit <number>", "Limit number of results", "10")
+    .action(async (options) => {
       const params: DefaultApiGetCryptoMACDRequest = {
-        cryptoTicker: requireFlag(f, "ticker"),
-        timestamp: f.timestamp,
-        timespan: f.timespan as GetCryptoMACDTimespanEnum,
-        shortWindow: num(f["short-window"]),
-        longWindow: num(f["long-window"]),
-        signalWindow: num(f["signal-window"]),
-        seriesType: f["series-type"] as any,
-        expandUnderlying: bool(f["expand-underlying"]),
-        order: f.order as any,
-        limit: num(f.limit),
-        timestampGte: f["timestamp-gte"],
-        timestampGt: f["timestamp-gt"],
-        timestampLte: f["timestamp-lte"],
-        timestampLt: f["timestamp-lt"],
+        cryptoTicker: options.ticker,
+        timestamp: options.timestamp,
+        timespan: options.timespan as GetCryptoMACDTimespanEnum,
+        shortWindow: num(options["short-window"]),
+        longWindow: num(options["long-window"]),
+        signalWindow: num(options["signal-window"]),
+        seriesType: options["series-type"] as any,
+        expandUnderlying: options["expand-underlying"],
+        order: options.order as any,
+        limit: num(options.limit),
+        timestampGte: options["timestamp-gte"],
+        timestampGt: options["timestamp-gt"],
+        timestampLte: options["timestamp-lte"],
+        timestampLt: options["timestamp-lt"],
       };
       await output(api.getCryptoMACD(params));
-    },
-  },
-  "last-crypto-trade": {
-    desc: "Last crypto trade",
-    usage: "--from BTC --to USD",
-    handler: async (_api, f) => {
+    });
+
+  return crypto;
+}
+
+export function createLastCryptoTradeCommand(): Command {
+  return new Command("last-crypto-trade")
+    .description("Last crypto trade")
+    .requiredOption("-f, --from <from>", "From currency (e.g., BTC)")
+    .requiredOption("-t, --to <to>", "To currency (e.g., USD)")
+    .action(async (options) => {
       const params: DefaultApiGetLastCryptoTradeRequest = {
-        from: requireFlag(f, "from"),
-        to: requireFlag(f, "to"),
+        from: options.from,
+        to: options.to,
       };
       await output(api.getLastCryptoTrade(params));
-    },
-  },
-};
+    });
+}

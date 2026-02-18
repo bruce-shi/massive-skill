@@ -8,32 +8,9 @@ export function getApiKey(): string {
   return key;
 }
 
-export function parseArgs(argv: string[]): {
-  command: string;
-  flags: Record<string, string>;
-} {
-  const [command, ...rest] = argv;
-  const flags: Record<string, string> = {};
-  for (let i = 0; i < rest.length; i++) {
-    const arg = rest[i] || "";
-    if (arg.startsWith("--")) {
-      const key = arg.slice(2);
-      const next = rest[i + 1];
-      if (next && !next.startsWith("--")) {
-        flags[key] = next;
-        i++;
-      } else {
-        flags[key] = "true";
-      }
-    }
-  }
-  return { command: command || "help", flags };
-}
+export type Flags = Record<string, string | undefined>;
 
-export function requireFlag(
-  flags: Record<string, string>,
-  name: string,
-): string {
+export function requireFlag(flags: Flags, name: string): string {
   const val = flags[name];
   if (!val) {
     console.error(`Error: --${name} is required for this command.`);
