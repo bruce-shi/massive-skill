@@ -9,7 +9,7 @@ Get the most recent news articles relating to a stock ticker symbol, including a
 
 **Usage:**
 ```bash
-npx --yes massive news [options]
+npx -y massive-cli news [options]
 ```
 
 **Parameters:**
@@ -29,5 +29,5 @@ npx --yes massive news [options]
 
 **Example:**
 ```bash
-npx --yes massive news --ticker AAPL --limit 5
+npx -y massive-cli news --ticker AAPL --limit 5
 ```

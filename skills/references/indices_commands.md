@@ -4,12 +4,12 @@ This document provides a reference for the indices-related commands available in
 
 ## Commands
 
-### indices-aggs
+### indices aggs
 Get aggregate bars (OHLCV) for an index over a given date range.
 
 **Usage:**
 ```bash
-npx --yes massive indices-aggs --ticker <ticker> --from <YYYY-MM-DD> --to <YYYY-MM-DD> [options]
+npx -y massive-cli indices aggs --ticker <ticker> --from <YYYY-MM-DD> --to <YYYY-MM-DD> [options]
 ```
 
 **Parameters:**
@@ -23,15 +23,15 @@ npx --yes massive indices-aggs --ticker <ticker> --from <YYYY-MM-DD> --to <YYYY-
 
 **Example:**
 ```bash
-npx --yes massive indices-aggs --ticker I:SPX --from 2025-01-01 --to 2025-01-31 --timespan day --limit 10
+npx -y massive-cli indices aggs --ticker I:SPX --from 2025-01-01 --to 2025-01-31 --timespan day --limit 10
 ```
 
-### indices-open-close
+### indices open-close
 Get the daily open, close, and after-hours prices for an index on a specific date.
 
 **Usage:**
 ```bash
-npx --yes massive indices-open-close --ticker <ticker> --date <YYYY-MM-DD>
+npx -y massive-cli indices open-close --ticker <ticker> --date <YYYY-MM-DD>
 ```
 
 **Parameters:**
@@ -40,15 +40,15 @@ npx --yes massive indices-open-close --ticker <ticker> --date <YYYY-MM-DD>
 
 **Example:**
 ```bash
-npx --yes massive indices-open-close --ticker I:SPX --date 2025-01-15
+npx -y massive-cli indices open-close --ticker I:SPX --date 2025-01-15
 ```
 
-### indices-snapshot
+### indices snapshot
 Get the most recent snapshot for an index.
 
 **Usage:**
 ```bash
-npx --yes massive indices-snapshot [--ticker <ticker>]
+npx -y massive-cli indices snapshot [--ticker <ticker>]
 ```
 
 **Parameters:**
@@ -56,15 +56,15 @@ npx --yes massive indices-snapshot [--ticker <ticker>]
 
 **Example:**
 ```bash
-npx --yes massive indices-snapshot --ticker I:SPX
+npx -y massive-cli indices snapshot --ticker I:SPX
 ```
 
-### indices-previous
+### indices previous
 Get the previous day's open, high, low, and close (OHLC) for an index.
 
 **Usage:**
 ```bash
-npx --yes massive indices-previous --ticker <ticker>
+npx -y massive-cli indices previous --ticker <ticker>
 ```
 
 **Parameters:**
@@ -72,15 +72,15 @@ npx --yes massive indices-previous --ticker <ticker>
 
 **Example:**
 ```bash
-npx --yes massive indices-previous --ticker I:SPX
+npx -y massive-cli indices previous --ticker I:SPX
 ```
 
-### indices-sma
+### indices sma
 Get Simple Moving Average (SMA) for an index.
 
 **Usage:**
 ```bash
-npx --yes massive indices-sma --ticker <ticker> [options]
+npx -y massive-cli indices sma --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -96,15 +96,15 @@ npx --yes massive indices-sma --ticker <ticker> [options]
 
 **Example:**
 ```bash
-npx --yes massive indices-sma --ticker I:SPX --window 50
+npx -y massive-cli indices sma --ticker I:SPX --window 50
 ```
 
-### indices-ema
+### indices ema
 Get Exponential Moving Average (EMA) for an index.
 
 **Usage:**
 ```bash
-npx --yes massive indices-ema --ticker <ticker> [options]
+npx -y massive-cli indices ema --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -120,15 +120,15 @@ npx --yes massive indices-ema --ticker <ticker> [options]
 
 **Example:**
 ```bash
-npx --yes massive indices-ema --ticker I:SPX --window 50
+npx -y massive-cli indices ema --ticker I:SPX --window 50
 ```
 
-### indices-rsi
+### indices rsi
 Get Relative Strength Index (RSI) for an index.
 
 **Usage:**
 ```bash
-npx --yes massive indices-rsi --ticker <ticker> [options]
+npx -y massive-cli indices rsi --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -144,15 +144,15 @@ npx --yes massive indices-rsi --ticker <ticker> [options]
 
 **Example:**
 ```bash
-npx --yes massive indices-rsi --ticker I:SPX --window 14
+npx -y massive-cli indices rsi --ticker I:SPX --window 14
 ```
 
-### indices-macd
+### indices macd
 Get Moving Average Convergence/Divergence (MACD) for an index.
 
 **Usage:**
 ```bash
-npx --yes massive indices-macd --ticker <ticker> [options]
+npx -y massive-cli indices macd --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -170,5 +170,5 @@ npx --yes massive indices-macd --ticker <ticker> [options]
 
 **Example:**
 ```bash
-npx --yes massive indices-macd --ticker I:SPX
+npx -y massive-cli indices macd --ticker I:SPX
 ```

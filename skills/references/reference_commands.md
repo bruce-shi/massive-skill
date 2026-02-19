@@ -9,7 +9,7 @@ Query all ticker symbols which are supported by Polygon.io.
 
 **Usage:**
 ```bash
-npx --yes massive tickers [options]
+npx -y massive-cli tickers [options]
 ```
 
 **Parameters:**
@@ -28,7 +28,7 @@ npx --yes massive tickers [options]
 
 **Example:**
 ```bash
-npx --yes massive tickers --search apple --market stocks --active true
+npx -y massive-cli tickers --search apple --market stocks --active true
 ```
 
 ### ticker-details
@@ -36,7 +36,7 @@ Get a single ticker supported by Polygon.io.
 
 **Usage:**
 ```bash
-npx --yes massive ticker-details --ticker <ticker> [options]
+npx -y massive-cli ticker-details --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -45,7 +45,7 @@ npx --yes massive ticker-details --ticker <ticker> [options]
 
 **Example:**
 ```bash
-npx --yes massive ticker-details --ticker AAPL
+npx -y massive-cli ticker-details --ticker AAPL
 ```
 
 ### ticker-types
@@ -53,7 +53,7 @@ Get a mapping of ticker types to their type code.
 
 **Usage:**
 ```bash
-npx --yes massive ticker-types [options]
+npx -y massive-cli ticker-types [options]
 ```
 
 **Parameters:**
@@ -62,7 +62,7 @@ npx --yes massive ticker-types [options]
 
 **Example:**
 ```bash
-npx --yes massive ticker-types --asset-class stocks
+npx -y massive-cli ticker-types --asset-class stocks
 ```
 
 ### exchanges
@@ -70,7 +70,7 @@ List all exchanges that Polygon.io knows about.
 
 **Usage:**
 ```bash
-npx --yes massive exchanges [options]
+npx -y massive-cli exchanges [options]
 ```
 
 **Parameters:**
@@ -79,7 +79,7 @@ npx --yes massive exchanges [options]
 
 **Example:**
 ```bash
-npx --yes massive exchanges --asset-class stocks
+npx -y massive-cli exchanges --asset-class stocks
 ```
 
 ### conditions
@@ -87,7 +87,7 @@ List all conditions that Polygon.io uses.
 
 **Usage:**
 ```bash
-npx --yes massive conditions [options]
+npx -y massive-cli conditions [options]
 ```
 
 **Parameters:**
@@ -101,7 +101,7 @@ npx --yes massive conditions [options]
 
 **Example:**
 ```bash
-npx --yes massive conditions --asset-class stocks
+npx -y massive-cli conditions --asset-class stocks
 ```
 
 ### dividends
@@ -109,7 +109,7 @@ Get a list of historical cash dividends, including the ticker symbol, declaratio
 
 **Usage:**
 ```bash
-npx --yes massive dividends [options]
+npx -y massive-cli dividends [options]
 ```
 
 **Parameters:**
@@ -127,7 +127,7 @@ npx --yes massive dividends [options]
 
 **Example:**
 ```bash
-npx --yes massive dividends --ticker AAPL
+npx -y massive-cli dividends --ticker AAPL
 ```
 
 ### stock-splits
@@ -135,7 +135,7 @@ Get a list of historical stock splits, including the ticker symbol, the executio
 
 **Usage:**
 ```bash
-npx --yes massive stock-splits [options]
+npx -y massive-cli stock-splits [options]
 ```
 
 **Parameters:**
@@ -148,7 +148,7 @@ npx --yes massive stock-splits [options]
 
 **Example:**
 ```bash
-npx --yes massive stock-splits --ticker AAPL
+npx -y massive-cli stock-splits --ticker AAPL
 ```
 
 ### financials
@@ -156,7 +156,7 @@ Get historical financial data for a stock ticker.
 
 **Usage:**
 ```bash
-npx --yes massive financials [options]
+npx -y massive-cli financials [options]
 ```
 
 **Parameters:**
@@ -174,7 +174,7 @@ npx --yes massive financials [options]
 
 **Example:**
 ```bash
-npx --yes massive financials --ticker AAPL
+npx -y massive-cli financials --ticker AAPL
 ```
 
 ### ipos
@@ -182,7 +182,7 @@ Get a list of upcoming IPOs.
 
 **Usage:**
 ```bash
-npx --yes massive ipos [options]
+npx -y massive-cli ipos [options]
 ```
 
 **Parameters:**
@@ -196,7 +196,7 @@ npx --yes massive ipos [options]
 
 **Example:**
 ```bash
-npx --yes massive ipos --limit 5
+npx -y massive-cli ipos --limit 5
 ```
 
 ### related-companies
@@ -204,7 +204,7 @@ Get a list of tickers that are related to the given ticker.
 
 **Usage:**
 ```bash
-npx --yes massive related-companies --ticker <ticker>
+npx -y massive-cli related-companies --ticker <ticker>
 ```
 
 **Parameters:**
@@ -212,5 +212,5 @@ npx --yes massive related-companies --ticker <ticker>
 
 **Example:**
 ```bash
-npx --yes massive related-companies --ticker AAPL
+npx -y massive-cli related-companies --ticker AAPL
 ```

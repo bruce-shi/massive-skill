@@ -327,11 +327,8 @@ export function createOptionsCommand(): Command {
       await output(api.getOptionsMACD(params));
     });
 
-  return options;
-}
-
-export function createLastOptionsTradeCommand(): Command {
-  return new Command("last-options-trade")
+  options
+    .command("last-trade")
     .description("Last options trade")
     .requiredOption("-t, --ticker <ticker>", "Options ticker")
     .action(async (opts) => {
@@ -340,4 +337,6 @@ export function createLastOptionsTradeCommand(): Command {
       };
       await output(api.getLastOptionsTrade(params));
     });
+
+  return options;
 }

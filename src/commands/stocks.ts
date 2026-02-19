@@ -337,11 +337,8 @@ export function createStocksCommand(): Command {
       await output(api.getStocksMACD(params));
     });
 
-  return stocks;
-}
-
-export function createLastTradeCommand(): Command {
-  return new Command("last-trade")
+  stocks
+    .command("last-trade")
     .description("Last stock trade")
     .requiredOption("-t, --ticker <ticker>", "Stock ticker")
     .action(async (options) => {
@@ -350,10 +347,9 @@ export function createLastTradeCommand(): Command {
       };
       await output(api.getLastStocksTrade(params));
     });
-}
 
-export function createLastQuoteCommand(): Command {
-  return new Command("last-quote")
+  stocks
+    .command("last-quote")
     .description("Last stock quote")
     .requiredOption("-t, --ticker <ticker>", "Stock ticker")
     .action(async (options) => {
@@ -362,4 +358,6 @@ export function createLastQuoteCommand(): Command {
       };
       await output(api.getLastStocksQuote(params));
     });
+
+  return stocks;
 }

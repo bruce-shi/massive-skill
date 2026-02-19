@@ -4,12 +4,12 @@ This document provides a reference for the options-related commands available in
 
 ## Commands
 
-### options-aggs
+### options aggs
 Get aggregate bars (OHLCV) for an options contract over a given date range.
 
 **Usage:**
 ```bash
-npx --yes massive options-aggs --ticker <ticker> --from <YYYY-MM-DD> --to <YYYY-MM-DD> [options]
+npx -y massive-cli options aggs --ticker <ticker> --from <YYYY-MM-DD> --to <YYYY-MM-DD> [options]
 ```
 
 **Parameters:**
@@ -24,15 +24,15 @@ npx --yes massive options-aggs --ticker <ticker> --from <YYYY-MM-DD> --to <YYYY-
 
 **Example:**
 ```bash
-npx --yes massive options-aggs --ticker O:AAPL230616C00150000 --from 2025-01-01 --to 2025-01-31 --timespan day --limit 10
+npx -y massive-cli options aggs --ticker O:AAPL230616C00150000 --from 2025-01-01 --to 2025-01-31 --timespan day --limit 10
 ```
 
-### options-trades
+### options trades
 Get trades for an options contract.
 
 **Usage:**
 ```bash
-npx --yes massive options-trades --ticker <ticker> [options]
+npx -y massive-cli options trades --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -45,15 +45,15 @@ npx --yes massive options-trades --ticker <ticker> [options]
 
 **Example:**
 ```bash
-npx --yes massive options-trades --ticker O:AAPL230616C00150000 --limit 5
+npx -y massive-cli options trades --ticker O:AAPL230616C00150000 --limit 5
 ```
 
-### options-quotes
+### options quotes
 Get quotes for an options contract.
 
 **Usage:**
 ```bash
-npx --yes massive options-quotes --ticker <ticker> [options]
+npx -y massive-cli options quotes --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -66,15 +66,15 @@ npx --yes massive options-quotes --ticker <ticker> [options]
 
 **Example:**
 ```bash
-npx --yes massive options-quotes --ticker O:AAPL230616C00150000 --limit 5
+npx -y massive-cli options quotes --ticker O:AAPL230616C00150000 --limit 5
 ```
 
-### options-open-close
+### options open-close
 Get the daily open, close, and after-hours prices for an options contract on a specific date.
 
 **Usage:**
 ```bash
-npx --yes massive options-open-close --ticker <ticker> --date <YYYY-MM-DD> [options]
+npx -y massive-cli options open-close --ticker <ticker> --date <YYYY-MM-DD> [options]
 ```
 
 **Parameters:**
@@ -84,15 +84,15 @@ npx --yes massive options-open-close --ticker <ticker> --date <YYYY-MM-DD> [opti
 
 **Example:**
 ```bash
-npx --yes massive options-open-close --ticker O:AAPL230616C00150000 --date 2025-01-15
+npx -y massive-cli options open-close --ticker O:AAPL230616C00150000 --date 2025-01-15
 ```
 
-### options-chain
+### options chain
 Get a snapshot of options chain for an underlying asset.
 
 **Usage:**
 ```bash
-npx --yes massive options-chain --underlying <ticker> [options]
+npx -y massive-cli options chain --underlying <ticker> [options]
 ```
 
 **Parameters:**
@@ -106,15 +106,15 @@ npx --yes massive options-chain --underlying <ticker> [options]
 
 **Example:**
 ```bash
-npx --yes massive options-chain --underlying AAPL --type call
+npx -y massive-cli options chain --underlying AAPL --type call
 ```
 
-### options-contract
+### options contract
 Get details for a specific options contract.
 
 **Usage:**
 ```bash
-npx --yes massive options-contract --underlying <ticker> --contract <contract_id>
+npx -y massive-cli options contract --underlying <ticker> --contract <contract_id>
 ```
 
 **Parameters:**
@@ -123,15 +123,15 @@ npx --yes massive options-contract --underlying <ticker> --contract <contract_id
 
 **Example:**
 ```bash
-npx --yes massive options-contract --underlying AAPL --contract O:AAPL230616C00150000
+npx -y massive-cli options contract --underlying AAPL --contract O:AAPL230616C00150000
 ```
 
-### options-previous
+### options previous
 Get the previous day's open, high, low, and close (OHLC) for an options contract.
 
 **Usage:**
 ```bash
-npx --yes massive options-previous --ticker <ticker> [options]
+npx -y massive-cli options previous --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -140,15 +140,15 @@ npx --yes massive options-previous --ticker <ticker> [options]
 
 **Example:**
 ```bash
-npx --yes massive options-previous --ticker O:AAPL230616C00150000
+npx -y massive-cli options previous --ticker O:AAPL230616C00150000
 ```
 
-### options-sma
+### options sma
 Get Simple Moving Average (SMA) for an options contract.
 
 **Usage:**
 ```bash
-npx --yes massive options-sma --ticker <ticker> [options]
+npx -y massive-cli options sma --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -164,15 +164,15 @@ npx --yes massive options-sma --ticker <ticker> [options]
 
 **Example:**
 ```bash
-npx --yes massive options-sma --ticker O:AAPL230616C00150000 --window 50
+npx -y massive-cli options sma --ticker O:AAPL230616C00150000 --window 50
 ```
 
-### options-ema
+### options ema
 Get Exponential Moving Average (EMA) for an options contract.
 
 **Usage:**
 ```bash
-npx --yes massive options-ema --ticker <ticker> [options]
+npx -y massive-cli options ema --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -188,15 +188,15 @@ npx --yes massive options-ema --ticker <ticker> [options]
 
 **Example:**
 ```bash
-npx --yes massive options-ema --ticker O:AAPL230616C00150000 --window 50
+npx -y massive-cli options ema --ticker O:AAPL230616C00150000 --window 50
 ```
 
-### options-rsi
+### options rsi
 Get Relative Strength Index (RSI) for an options contract.
 
 **Usage:**
 ```bash
-npx --yes massive options-rsi --ticker <ticker> [options]
+npx -y massive-cli options rsi --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -212,15 +212,15 @@ npx --yes massive options-rsi --ticker <ticker> [options]
 
 **Example:**
 ```bash
-npx --yes massive options-rsi --ticker O:AAPL230616C00150000 --window 14
+npx -y massive-cli options rsi --ticker O:AAPL230616C00150000 --window 14
 ```
 
-### options-macd
+### options macd
 Get Moving Average Convergence/Divergence (MACD) for an options contract.
 
 **Usage:**
 ```bash
-npx --yes massive options-macd --ticker <ticker> [options]
+npx -y massive-cli options macd --ticker <ticker> [options]
 ```
 
 **Parameters:**
@@ -238,15 +238,15 @@ npx --yes massive options-macd --ticker <ticker> [options]
 
 **Example:**
 ```bash
-npx --yes massive options-macd --ticker O:AAPL230616C00150000
+npx -y massive-cli options macd --ticker O:AAPL230616C00150000
 ```
 
-### last-options-trade
+### options last-trade
 Get the most recent trade for an options contract.
 
 **Usage:**
 ```bash
-npx --yes massive last-options-trade --ticker <ticker>
+npx -y massive-cli options last-trade --ticker <ticker>
 ```
 
 **Parameters:**
@@ -254,5 +254,5 @@ npx --yes massive last-options-trade --ticker <ticker>
 
 **Example:**
 ```bash
-npx --yes massive last-options-trade --ticker O:AAPL230616C00150000
+npx -y massive-cli options last-trade --ticker O:AAPL230616C00150000
 ```

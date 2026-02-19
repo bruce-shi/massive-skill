@@ -9,7 +9,7 @@ Get the prompt status of the market.
 
 **Usage:**
 ```bash
-npx --yes massive market-status
+npx -y massive-cli market-status
 ```
 
 **Parameters:**
@@ -17,7 +17,7 @@ None.
 
 **Example:**
 ```bash
-npx --yes massive market-status
+npx -y massive-cli market-status
 ```
 
 ### market-holidays
@@ -25,7 +25,7 @@ Get upcoming market holidays.
 
 **Usage:**
 ```bash
-npx --yes massive market-holidays
+npx -y massive-cli market-holidays
 ```
 
 **Parameters:**
@@ -33,5 +33,5 @@ None.
 
 **Example:**
 ```bash
-npx --yes massive market-holidays
+npx -y massive-cli market-holidays
 ```

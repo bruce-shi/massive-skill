@@ -5,7 +5,7 @@ This document provides details on the parameters and enums used in the Polygon/M
 ## Enums
 
 ### Timespans
-Used in `crypto-aggs`, `crypto-sma`, `crypto-ema`, `crypto-rsi`, `crypto-macd`:
+Used in `crypto aggs`, `crypto sma`, `crypto ema`, `crypto rsi`, `crypto macd`:
 - **GetCryptoAggregatesTimespanEnum**: `second`, `minute`, `hour`, `day`, `week`, `month`, `quarter`, `year`
 - **GetCryptoSMATimespanEnum**: `minute`, `hour`, `day`, `week`, `month`, `quarter`, `year`
 - **GetCryptoEMATimespanEnum**: `minute`, `hour`, `day`, `week`, `month`, `quarter`, `year`
@@ -13,7 +13,7 @@ Used in `crypto-aggs`, `crypto-sma`, `crypto-ema`, `crypto-rsi`, `crypto-macd`:
 - **GetCryptoMACDTimespanEnum**: `minute`, `hour`, `day`, `week`, `month`, `quarter`, `year`
 
 ### Series Type
-Used in technical indicators (`crypto-sma`, `crypto-ema`, `crypto-rsi`, `crypto-macd`) to specify which price to use:
+Used in technical indicators (`crypto sma`, `crypto ema`, `crypto rsi`, `crypto macd`) to specify which price to use:
 - `open`, `high`, `low`, `close`
 
 ### Order / Sort
@@ -26,7 +26,7 @@ Used in technical indicators (`crypto-sma`, `crypto-ema`, `crypto-rsi`, `crypto-
 
 ## Commands and Parameters
 
-### `crypto-aggs`
+### `crypto aggs`
 - `ticker` (string, required): Crypto ticker (e.g., X:BTCUSD)
 - `multiplier` (number): Timespan multiplier (default 1)
 - `timespan` (enum): See Timespans above (default 'day')
@@ -38,10 +38,10 @@ Used in technical indicators (`crypto-sma`, `crypto-ema`, `crypto-rsi`, `crypto-
 
 **Example**:
 ```bash
-npx --yes massive crypto-aggs --ticker X:BTCUSD --from 2023-01-01 --to 2023-01-31 --timespan day
+npx -y massive-cli crypto aggs --ticker X:BTCUSD --from 2023-01-01 --to 2023-01-31 --timespan day
 ```
 
-### `crypto-trades`
+### `crypto trades`
 - `ticker` (string, required): Crypto ticker
 - `timestamp` (string): Specific timestamp
 - `timestamp-gte`, `timestamp-gt`, `timestamp-lte`, `timestamp-lt`: Timestamp range filters
@@ -51,34 +51,34 @@ npx --yes massive crypto-aggs --ticker X:BTCUSD --from 2023-01-01 --to 2023-01-3
 
 **Example**:
 ```bash
-npx --yes massive crypto-trades --ticker X:BTCUSD --limit 5
+npx -y massive-cli crypto trades --ticker X:BTCUSD --limit 5
 ```
 
-### `crypto-snapshot`
+### `crypto snapshot`
 - `ticker` (string, required): Crypto ticker
 
 **Example**:
 ```bash
-npx --yes massive crypto-snapshot --ticker X:BTCUSD
+npx -y massive-cli crypto snapshot --ticker X:BTCUSD
 ```
 
-### `crypto-snapshot-direction`
+### `crypto snapshot-direction`
 - `direction` (enum, required): `gainers` or `losers`
 
 **Example**:
 ```bash
-npx --yes massive crypto-snapshot-direction --direction gainers
+npx -y massive-cli crypto snapshot-direction --direction gainers
 ```
 
-### `crypto-snapshot-tickers`
+### `crypto snapshot-tickers`
 - `tickers` (comma-separated strings): List of tickers
 
 **Example**:
 ```bash
-npx --yes massive crypto-snapshot-tickers --tickers X:BTCUSD,X:ETHUSD
+npx -y massive-cli crypto snapshot-tickers --tickers X:BTCUSD,X:ETHUSD
 ```
 
-### `crypto-open-close`
+### `crypto open-close`
 - `from` (string, required): From symbol (e.g., BTC)
 - `to` (string, required): To symbol (e.g., USD)
 - `date` (string, required): Date (YYYY-MM-DD)
@@ -86,28 +86,28 @@ npx --yes massive crypto-snapshot-tickers --tickers X:BTCUSD,X:ETHUSD
 
 **Example**:
 ```bash
-npx --yes massive crypto-open-close --from BTC --to USD --date 2023-01-01
+npx -y massive-cli crypto open-close --from BTC --to USD --date 2023-01-01
 ```
 
-### `crypto-previous`
+### `crypto previous`
 - `ticker` (string, required): Crypto ticker
 - `adjusted` (boolean): Adjust for splits
 
 **Example**:
 ```bash
-npx --yes massive crypto-previous --ticker X:BTCUSD
+npx -y massive-cli crypto previous --ticker X:BTCUSD
 ```
 
-### `crypto-grouped`
+### `crypto grouped`
 - `date` (string, required): Date (YYYY-MM-DD)
 - `adjusted` (boolean): Adjust for splits
 
 **Example**:
 ```bash
-npx --yes massive crypto-grouped --date 2023-01-01
+npx -y massive-cli crypto grouped --date 2023-01-01
 ```
 
-### Technical Indicators (`crypto-sma`, `crypto-ema`, `crypto-rsi`, `crypto-macd`)
+### Technical Indicators (`crypto sma`, `crypto ema`, `crypto rsi`, `crypto macd`)
 Common parameters:
 - `ticker` (string, required)
 - `timespan` (enum)
@@ -118,7 +118,7 @@ Common parameters:
 - `limit` (number)
 - Timestamp filters: `timestamp`, `timestamp-gte`, `timestamp-gt`, `timestamp-lte`, `timestamp-lt`
 
-Specific to `crypto-macd`:
+Specific to `crypto macd`:
 - `short-window` (number)
 - `long-window` (number)
 - `signal-window` (number)
@@ -126,17 +126,17 @@ Specific to `crypto-macd`:
 **Example**:
 ```bash
 # SMA
-npx --yes massive crypto-sma --ticker X:BTCUSD --timespan day --window 50
+npx -y massive-cli crypto sma --ticker X:BTCUSD --timespan day --window 50
 
 # MACD
-npx --yes massive crypto-macd --ticker X:BTCUSD --timespan day --short-window 12 --long-window 26 --signal-window 9
+npx -y massive-cli crypto macd --ticker X:BTCUSD --timespan day --short-window 12 --long-window 26 --signal-window 9
 ```
 
-### `last-crypto-trade`
+### `crypto last-trade`
 - `from` (string, required)
 - `to` (string, required)
 
 **Example**:
 ```bash
-npx --yes massive last-crypto-trade --from BTC --to USD
+npx -y massive-cli crypto last-trade --from BTC --to USD
 ```

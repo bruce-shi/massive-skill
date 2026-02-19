@@ -288,6 +288,19 @@ export function createForexCommand(): Command {
       await output(api.getForexMACD(params));
     });
 
+  forex
+    .command("last-quote")
+    .description("Last forex quote")
+    .requiredOption("-f, --from <from>", "From currency (e.g., EUR)")
+    .requiredOption("-t, --to <to>", "To currency (e.g., USD)")
+    .action(async (options) => {
+      const params: DefaultApiGetLastCurrencyQuoteRequest = {
+        from: options.from,
+        to: options.to,
+      };
+      await output(api.getLastCurrencyQuote(params));
+    });
+
   return forex;
 }
 
@@ -306,19 +319,5 @@ export function createCurrencyConversionCommand(): Command {
         precision: num(options.precision) as GetCurrencyConversionPrecisionEnum,
       };
       await output(api.getCurrencyConversion(params));
-    });
-}
-
-export function createLastForexQuoteCommand(): Command {
-  return new Command("last-forex-quote")
-    .description("Last forex quote")
-    .requiredOption("-f, --from <from>", "From currency (e.g., EUR)")
-    .requiredOption("-t, --to <to>", "To currency (e.g., USD)")
-    .action(async (options) => {
-      const params: DefaultApiGetLastCurrencyQuoteRequest = {
-        from: options.from,
-        to: options.to,
-      };
-      await output(api.getLastCurrencyQuote(params));
     });
 }

@@ -299,11 +299,8 @@ export function createCryptoCommand(): Command {
       await output(api.getCryptoMACD(params));
     });
 
-  return crypto;
-}
-
-export function createLastCryptoTradeCommand(): Command {
-  return new Command("last-crypto-trade")
+  crypto
+    .command("last-trade")
     .description("Last crypto trade")
     .requiredOption("-f, --from <from>", "From currency (e.g., BTC)")
     .requiredOption("-t, --to <to>", "To currency (e.g., USD)")
@@ -314,4 +311,6 @@ export function createLastCryptoTradeCommand(): Command {
       };
       await output(api.getLastCryptoTrade(params));
     });
+
+  return crypto;
 }
